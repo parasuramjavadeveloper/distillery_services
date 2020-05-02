@@ -4,144 +4,171 @@ import java.util.Date;
 import java.util.List;
 
 public class ShipmentHeaderDto {
-	private int shipmentHdrId;
+    private int shipmentHdrId;
 
-	private String consignmentType;
+    private String consignmentType;
 
-	private String route;
+    private String route;
 
-	private String vehicleNum;
+    private String vehicleNum;
 
-	private String transporter;
+    private String transporter;
 
-	private Integer lrNum;
+    private Integer lrNum;
 
-	private Date lrDate;
+    private Date lrDate;
 
-	private String ofsNo;
+    private String ofsNo;
 
-	private Integer depotId;
+    private Integer depotId;
 
-	private Date creationDate;
+    private Date creationDate;
 
-	private String createdBy;
+    private String createdBy;
 
-	private Date updatedDate;
+    private Date updatedDate;
 
-	private String updatedBy;
+    private String updatedBy;
 
-	private List<ShipmentLineDto> shipmentLineDto;
+    private String status;
+    private String action;
+    private Long validPeriod;
+    private List<ShipmentLineDto> shipmentLineDto;
 
-	public int getShipmentHdrId() {
-		return shipmentHdrId;
-	}
+    public String getAction() {
+        return action;
+    }
 
-	public void setShipmentHdrId(int shipmentHdrId) {
-		this.shipmentHdrId = shipmentHdrId;
-	}
+    public void setAction(String action) {
+        this.action = action;
+    }
 
-	public String getConsignmentType() {
-		return consignmentType;
-	}
+    public Long getValidPeriod() {
+        return validPeriod;
+    }
 
-	public void setConsignmentType(String consignmentType) {
-		this.consignmentType = consignmentType;
-	}
+    public void setValidPeriod(Long validPeriod) {
+        this.validPeriod = validPeriod;
+    }
 
-	public String getRoute() {
-		return route;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public void setRoute(String route) {
-		this.route = route;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public String getVehicleNum() {
-		return vehicleNum;
-	}
+    public int getShipmentHdrId() {
+        return shipmentHdrId;
+    }
 
-	public void setVehicleNum(String vehicleNum) {
-		this.vehicleNum = vehicleNum;
-	}
+    public void setShipmentHdrId(int shipmentHdrId) {
+        this.shipmentHdrId = shipmentHdrId;
+    }
 
-	public String getTransporter() {
-		return transporter;
-	}
+    public String getConsignmentType() {
+        return consignmentType;
+    }
 
-	public void setTransporter(String transporter) {
-		this.transporter = transporter;
-	}
+    public void setConsignmentType(String consignmentType) {
+        this.consignmentType = consignmentType;
+    }
 
-	public Integer getLrNum() {
-		return lrNum;
-	}
+    public String getRoute() {
+        return route;
+    }
 
-	public void setLrNum(Integer lrNum) {
-		this.lrNum = lrNum;
-	}
+    public void setRoute(String route) {
+        this.route = route;
+    }
 
-	public Date getLrDate() {
-		return lrDate;
-	}
+    public String getVehicleNum() {
+        return vehicleNum;
+    }
 
-	public void setLrDate(Date lrDate) {
-		this.lrDate = lrDate;
-	}
+    public void setVehicleNum(String vehicleNum) {
+        this.vehicleNum = vehicleNum;
+    }
 
-	public String getOfsNo() {
-		return ofsNo;
-	}
+    public String getTransporter() {
+        return transporter;
+    }
 
-	public void setOfsNo(String ofsNo) {
-		this.ofsNo = ofsNo;
-	}
+    public void setTransporter(String transporter) {
+        this.transporter = transporter;
+    }
 
-	public Integer getDepotId() {
-		return depotId;
-	}
+    public Integer getLrNum() {
+        return lrNum;
+    }
 
-	public void setDepotId(Integer depotId) {
-		this.depotId = depotId;
-	}
+    public void setLrNum(Integer lrNum) {
+        this.lrNum = lrNum;
+    }
 
-	public Date getCreationDate() {
-		return creationDate;
-	}
+    public Date getLrDate() {
+        return lrDate;
+    }
 
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
+    public void setLrDate(Date lrDate) {
+        this.lrDate = lrDate;
+    }
 
-	public String getCreatedBy() {
-		return createdBy;
-	}
+    public String getOfsNo() {
+        return ofsNo;
+    }
 
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
+    public void setOfsNo(String ofsNo) {
+        this.ofsNo = ofsNo;
+    }
 
-	public Date getUpdatedDate() {
-		return updatedDate;
-	}
+    public Integer getDepotId() {
+        return depotId;
+    }
 
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
-	}
+    public void setDepotId(Integer depotId) {
+        this.depotId = depotId;
+    }
 
-	public String getUpdatedBy() {
-		return updatedBy;
-	}
+    public Date getCreationDate() {
+        return creationDate;
+    }
 
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
 
-	public List<ShipmentLineDto> getShipmentLineDto() {
-		return shipmentLineDto;
-	}
+    public String getCreatedBy() {
+        return createdBy;
+    }
 
-	public void setShipmentLineDto(List<ShipmentLineDto> shipmentLineDto) {
-		this.shipmentLineDto = shipmentLineDto;
-	}
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public List<ShipmentLineDto> getShipmentLineDto() {
+        return shipmentLineDto;
+    }
+
+    public void setShipmentLineDto(List<ShipmentLineDto> shipmentLineDto) {
+        this.shipmentLineDto = shipmentLineDto;
+    }
 
 }
