@@ -1,9 +1,7 @@
 /**
- * 
+ *
  */
 package com.hpfs.distillery.retailer.dto;
-
-import java.util.List;
 
 /**
  * @author ram
@@ -11,171 +9,141 @@ import java.util.List;
  */
 
 public class VehicleRouteDto {
-	
-	
-	public Long routeId;
 
-	
-	public String vehicleNum;
+    public Long routeId;
+    public String vehicleNum;
+    public String distillerySource;
+    public String intermediateDepots;
+    public String destinationDepot;
+    public String routeCreationDate;
+    public String estimatedStartDate;
+    public String comments;
+    public String status;
+    public String tpPin;
+    public String creationDate;
+    public String createdBy;
+    public String updatedDate;
+    public String updatedBy;
 
-	
-	public String distillerySource;
-	
-	
-	public String intermediateDepots;
-	
-
-	public String destinationDepot;
-	
-
-	
-	public String routeCreationDate;
-
-	
-	public String estimatedStartDate;
-	
-	
-	public String comments;
-
-	
-	public String status;
-	
-	public String tpPin;
-	
-	
-	public String creationDate;
-	
-	
-	public String createdBy;
-	
-	
-	public String updatedDate;
-	
-	
-	public String updatedBy;
-
-	public Long getRouteId() {
-		return routeId;
+	public VehicleRouteDto() {
 	}
 
-	public void setRouteId(Long routeId) {
-		this.routeId = routeId;
-	}
-
-	public String getTpPin() {
-		return tpPin;
-	}
-
-	public void setTpPin(String tpPin) {
-		this.tpPin = tpPin;
-	}
-
-	public String getVehicleNum() {
-		return vehicleNum;
-	}
-
-	public void setVehicleNum(String vehicleNum) {
+	public VehicleRouteDto(String distillerySource, String vehicleNum) {
+		this.distillerySource = distillerySource;
 		this.vehicleNum = vehicleNum;
 	}
 
-	public String getDistillerySource() {
-		return distillerySource;
-	}
+	public Long getRouteId() {
+        return routeId;
+    }
 
-	public void setDistillerySource(String distillerySource) {
-		this.distillerySource = distillerySource;
-	}
+    public void setRouteId(Long routeId) {
+        this.routeId = routeId;
+    }
 
-	/*public List<String getIntermediateDepots() {
-		return intermediateDepots;
-	}
+    public String getTpPin() {
+        return tpPin;
+    }
 
-	public void setIntermediateDepots(List<String> intermediateDepots) {
-		this.intermediateDepots = intermediateDepots;
-	}*/
+    public void setTpPin(String tpPin) {
+        this.tpPin = tpPin;
+    }
 
-	public String getDestinationDepot() {
-		return destinationDepot;
-	}
+    public String getVehicleNum() {
+        return vehicleNum;
+    }
 
-	public String getIntermediateDepots() {
-		return intermediateDepots;
-	}
+    public void setVehicleNum(String vehicleNum) {
+        this.vehicleNum = vehicleNum;
+    }
 
-	public void setIntermediateDepots(String intermediateDepots) {
-		this.intermediateDepots = intermediateDepots;
-	}
+    public String getDistillerySource() {
+        return distillerySource;
+    }
 
-	public void setDestinationDepot(String destinationDepot) {
-		this.destinationDepot = destinationDepot;
-	}
+    public void setDistillerySource(String distillerySource) {
+        this.distillerySource = distillerySource;
+    }
 
-	public String getRouteCreationDate() {
-		return routeCreationDate;
-	}
+    public String getDestinationDepot() {
+        return destinationDepot;
+    }
 
-	public void setRouteCreationDate(String routeCreationDate) {
-		this.routeCreationDate = routeCreationDate;
-	}
+    public String getIntermediateDepots() {
+        return intermediateDepots;
+    }
 
-	public String getEstimatedStartDate() {
-		return estimatedStartDate;
-	}
+    public void setIntermediateDepots(String intermediateDepots) {
+        this.intermediateDepots = intermediateDepots;
+    }
 
-	public void setEstimatedStartDate(String estimatedStartDate) {
-		this.estimatedStartDate = estimatedStartDate;
-	}
+    public void setDestinationDepot(String destinationDepot) {
+        this.destinationDepot = destinationDepot;
+    }
 
-	public String getComments() {
-		return comments;
-	}
+    public String getRouteCreationDate() {
+        return routeCreationDate;
+    }
 
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
+    public void setRouteCreationDate(String routeCreationDate) {
+        this.routeCreationDate = routeCreationDate;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public String getEstimatedStartDate() {
+        return estimatedStartDate;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public void setEstimatedStartDate(String estimatedStartDate) {
+        this.estimatedStartDate = estimatedStartDate;
+    }
 
-	public String getCreationDate() {
-		return creationDate;
-	}
+    public String getComments() {
+        return comments;
+    }
 
-	public void setCreationDate(String creationDate) {
-		this.creationDate = creationDate;
-	}
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
 
-	public String getCreatedBy() {
-		return createdBy;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public String getUpdatedDate() {
-		return updatedDate;
-	}
+    public String getCreationDate() {
+        return creationDate;
+    }
 
-	public void setUpdatedDate(String updatedDate) {
-		this.updatedDate = updatedDate;
-	}
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
 
-	public String getUpdatedBy() {
-		return updatedBy;
-	}
+    public String getCreatedBy() {
+        return createdBy;
+    }
 
-	public void setUpdatedBy(String updatedBy) {
-		this.updatedBy = updatedBy;
-	}
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
 
+    public String getUpdatedDate() {
+        return updatedDate;
+    }
 
+    public void setUpdatedDate(String updatedDate) {
+        this.updatedDate = updatedDate;
+    }
 
-	
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
 
 }

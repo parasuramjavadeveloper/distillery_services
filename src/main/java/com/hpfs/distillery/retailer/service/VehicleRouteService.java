@@ -16,7 +16,7 @@ public interface VehicleRouteService {
 	
 	VehicleTracking fetchVehicleLongitudeAndLatitudes(String vehicleNum);
 	
-	List<VehicleRoute> fetchDestinationsAndVehicleNumBySource(String source);
+	List<VehicleRoute> fetchDestinationsAndVehicleNumBySource(VehicleRouteDto vehicleRouteDto);
 
 	String addVehicleTracking(VehicleTrackingDto dto);
 

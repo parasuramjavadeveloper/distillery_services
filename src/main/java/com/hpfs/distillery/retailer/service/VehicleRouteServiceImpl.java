@@ -47,8 +47,8 @@ public class VehicleRouteServiceImpl implements VehicleRouteService {
 	}
 
 	@Override
-	public List<VehicleRoute> fetchDestinationsAndVehicleNumBySource(String source) {
-		return vehicleRouteRepository.fetchDestinationAndVehicleNumBySource(source);
+	public List<VehicleRoute> fetchDestinationsAndVehicleNumBySource(VehicleRouteDto vehicleRouteDto) {
+		return vehicleRouteRepository.findAll(new VehicleRouteSpecification(vehicleRouteDto));
 	}
 
 	@Override
