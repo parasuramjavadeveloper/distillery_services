@@ -85,9 +85,9 @@ public class VehicleTrackingController {
 
 	}
 	
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/fetchDestinations")
-	public Response<List<VehicleRoute> > fetchDestinations(){
-		List<VehicleRoute>  responseDataList = vehicleRouteService.fetchDestinations();
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/fetchDestinationsAndVehicleNumBySource")
+	public Response<List<VehicleRoute> > fetchDestinationsAndVehicleNumBySource(@Param(value = "source")String source){
+		List<VehicleRoute>  responseDataList = vehicleRouteService.fetchDestinationsAndVehicleNumBySource(source);
 		return new Response<List<VehicleRoute> > (new ResponseHeader(ResponseHeader.Status.SUCCESS,ResponseHeader.ResultSetType.LIST),
 				responseDataList);
 
@@ -108,7 +108,7 @@ public class VehicleTrackingController {
 				responseData);
 
 	}
-	
+	//select vehicle_num,destination_depot from route_details where source_disti = 'Uppal'
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/fetchIntermediateRouteList")
 	public Response<List<String>> fetchIntermediateRouteList(){
 		List<String> responseData = vehicleRouteService.fetchIntermediateRouteList();

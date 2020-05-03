@@ -24,7 +24,6 @@ public class DtoToModel {
         tblIndent_M.setVehicleNumber(requestData.getVehicleNumber());
         tblIndent_M.setCreationDate(DateFormatUtils.DateToString());
         tblIndent_M.setStatus(ApplicationConstants.ACTIVE_STATUS);
-        // tblIndent_M.setCreatedBy(us.getSid());
         return tblIndent_M;
     }
 
@@ -108,7 +107,6 @@ public class DtoToModel {
         tblHologram_M.setCreationDate(DateFormatUtils.DateToString());
         tblHologram_M.setPurpose(requestData.getPurpose());
         tblHologram_M.setStatus(requestData.getStatus());
-        // tblHologram_M.setStatus(ApplicationConstants.ACTIVE_STATUS);
         return tblHologram_M;
     }
 
@@ -159,7 +157,6 @@ public class DtoToModel {
         tblCartDetails.setCreatedBy(requestData.getCreatedBy());
         tblCartDetails.setUpdatedDate(requestData.getUpdatedDate());
         tblCartDetails.setUpdatedBy(requestData.getUpdatedBy());
-        // tblIndent_M.setCreatedBy(us.getSid());
         return tblCartDetails;
     }
 
@@ -167,7 +164,6 @@ public class DtoToModel {
         List<TblRetailerPaymentDetails> list = new ArrayList();
         if (requestData != null & requestData.getPaymentList() != null) {
             for (TblRetailerPaymentDetails d : requestData.getPaymentList()) {
-
                 TblRetailerPaymentDetails tblRetailerPaymentDetails = new TblRetailerPaymentDetails();
                 tblRetailerPaymentDetails.setRetailerPaymentId(d.getRetailerPaymentId());
                 tblRetailerPaymentDetails.setRetailerCode(d.getRetailerCode());
@@ -187,7 +183,6 @@ public class DtoToModel {
     }
 
     // Breakage Module Conversion
-
     public TblBreakageDetails toBreakageDetails(BreakageDetailsDto requestData, UserDetails us) {
         TblBreakageDetails breakageDetailsDto = new TblBreakageDetails();
         if (requestData != null)
@@ -247,14 +242,11 @@ public class DtoToModel {
 
             labSampleDto.setReferenceNum(requestData.getReferenceNum());
             labSampleDto.setSentThrough(requestData.getSentThrough());
-            //Blob blob = new SerialBlob(requestData.getSignature());
-            //labSampleDto.setSignature(blob);
             labSampleDto.setSampleType(requestData.getSampleType());
             labSampleDto.setCreationDate(new Date());
             labSampleDto.setCreatedBy(requestData.getCreatedBy());
             byte[] compressed = AttachmentUtils.compress(requestData.getSignatureFile());
             labSampleDto.setData(compressed);
-            //labSampleDto.setLabInformation((requestData.getLabInformation());
             labSampleDto.setLabInformation(buildLabInformation(requestData.getLabInformation()));
         }
 
@@ -264,9 +256,7 @@ public class DtoToModel {
 
     public ShipmentHeader toShipmentHeader(ShipmentHeaderDto requestData) throws SerialException, SQLException, IOException {
         ShipmentHeader shipmentHeader = new ShipmentHeader();
-
         if (requestData != null) {
-
             shipmentHeader.setConsignmentType(requestData.getConsignmentType());
             shipmentHeader.setCreatedBy(requestData.getCreatedBy());
             shipmentHeader.setCreationDate(requestData.getCreationDate());
@@ -284,13 +274,11 @@ public class DtoToModel {
             shipmentHeader.setVehicleNum(requestData.getVehicleNum());
             shipmentHeader.setShipmentLine(buildShipmentLine(requestData.getShipmentLineDto()));
         }
-
         return shipmentHeader;
 
     }
 
-
-    private List<LabInformation> buildLabInformation(List<LabInformationDto> labInformationDtoList) throws IOException {
+   private List<LabInformation> buildLabInformation(List<LabInformationDto> labInformationDtoList) throws IOException {
         List<LabInformation> labInformationList = new ArrayList<>();
         if (labInformationDtoList != null) {
             for (LabInformationDto d : labInformationDtoList) {
@@ -314,7 +302,6 @@ public class DtoToModel {
                 BeanUtils.copyProperties(d, shipmentLine);
                 shipmentLineList.add(shipmentLine);
             }
-
         }
         return shipmentLineList;
 

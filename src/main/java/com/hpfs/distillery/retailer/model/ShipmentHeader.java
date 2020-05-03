@@ -12,11 +12,13 @@ import java.util.List;
 public class ShipmentHeader {
 
    /* @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "shipment_hdr_id")*/
-    @Id
     @GeneratedValue(generator = TPGenerator.generatorName)
     @GenericGenerator(name = TPGenerator.generatorName, strategy = "a.b.c.MyGenerator")
+   */
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "shipment_hdr_id")
     private int shipmentHdrId;
 
     @Column(name = "consignment_type")
