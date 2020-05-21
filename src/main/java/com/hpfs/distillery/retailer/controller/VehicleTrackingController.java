@@ -51,7 +51,6 @@ public class VehicleTrackingController {
 		List<TblVehicleM> responseDataList = distilleryService.fetchActiveVehDts();
 		return new Response<List<TblVehicleM>> (new ResponseHeader(ResponseHeader.Status.SUCCESS,ResponseHeader.ResultSetType.LIST),
 				responseDataList);
-
 	}*/
 	
 	@ApiOperation(value="saveRouteDetails",notes="fetch fetchActscanCaseBarNo dts",response= Response.class)

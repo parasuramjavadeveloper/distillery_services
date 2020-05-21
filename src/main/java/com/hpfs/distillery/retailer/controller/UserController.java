@@ -193,10 +193,11 @@ public class UserController {
 	}
 
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/spLastLogin")
-	public Response<TblUsers> spLastLogin(@RequestBody Request<TblUsers> request) {
-		TblUsers users = userService.spLastLogin(null != request ? request.getRequestData() : null);
-		return new Response<TblUsers>(
-				new ResponseHeader(ResponseHeader.Status.SUCCESS, ResponseHeader.ResultSetType.SINGLE), users);
+	public Response<String> spLastLogin(@RequestBody Request<TblUsers> request) {
+		String lastLogin = null;
+		lastLogin = userService.spLastLogin(null != request ? request.getRequestData() : null);
+		return new Response<String>(
+				new ResponseHeader(ResponseHeader.Status.SUCCESS, ResponseHeader.ResultSetType.SINGLE), lastLogin);
 
 	}
 

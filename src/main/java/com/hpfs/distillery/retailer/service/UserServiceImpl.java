@@ -562,13 +562,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public TblUsers spLastLogin(TblUsers requestData) {
+	public String spLastLogin(TblUsers requestData) {
 		TblUsers users = new TblUsers();
 		 int lastLoginTime = usersRepository.sp_last_login(requestData.userId);
 		 if(lastLoginTime!=0) {
 			 users =  usersRepository.findByUserId(requestData.userId);
 		 }
-		return users;
+		return users.getLastLoginTime();
 	}
 
 	@Override

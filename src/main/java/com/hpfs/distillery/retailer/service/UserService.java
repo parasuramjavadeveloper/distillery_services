@@ -40,7 +40,7 @@ public interface UserService {
 	List<TblUsers> fetchActiveUsers();
 	List<TblPermissions> fetchPermissionByRoleId(Long roleId);
 	List<TblPermissions> fetchAllPermissionsDts();
-	TblUsers spLastLogin(TblUsers requestData);
+	String spLastLogin(TblUsers requestData);
 	String spLastLoginForWeb(TblUsers requestData);
 	TblUsers fetchUserDtsByUserId(TblUsers requestData);
 	TblUsers addToFavourites(TblUsers requestData);
