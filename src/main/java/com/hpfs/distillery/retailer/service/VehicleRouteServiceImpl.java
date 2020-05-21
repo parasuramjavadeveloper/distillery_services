@@ -12,7 +12,7 @@ import com.hpfs.distillery.retailer.model.VehicleRoute;
 import com.hpfs.distillery.retailer.model.VehicleTracking;
 import com.hpfs.distillery.retailer.repository.VehicleRouteRepository;
 import com.hpfs.distillery.retailer.repository.VehicleTrackingRepository;
-import com.hpfs.distillery.retailer.utils.DateFormatUtils;
+import com.hpfs.distillery.retailer.utils.DateUtils;
 import com.hpfs.distillery.retailer.utils.DtoToModel;
 
 import lombok.extern.slf4j.Slf4j;
@@ -65,7 +65,7 @@ public class VehicleRouteServiceImpl implements VehicleRouteService {
 				tracking.setDistilleryName(dto.getDistilleryName());
 				tracking.setDestination(dto.getDestination());
 				tracking.setRouteName(routeName);
-				tracking.setCreationDate(DateFormatUtils.DateToString());
+				tracking.setCreationDate(DateUtils.DateToString());
 				VehicleTracking vt = vehicleTrackingRepository.save(tracking);
 				if(vt!=null) {
 					i++;

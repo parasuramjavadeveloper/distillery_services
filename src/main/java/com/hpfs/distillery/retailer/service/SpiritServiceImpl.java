@@ -24,7 +24,7 @@ import com.hpfs.distillery.retailer.repository.TblReceiptsRepository;
 import com.hpfs.distillery.retailer.repository.TblSpiritTypesRepository;
 import com.hpfs.distillery.retailer.repository.TblSupplierMRepository;
 import com.hpfs.distillery.retailer.utils.ApplicationConstants;
-import com.hpfs.distillery.retailer.utils.DateFormatUtils;
+import com.hpfs.distillery.retailer.utils.DateUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -72,7 +72,7 @@ public class SpiritServiceImpl implements SpiritService {
 			purchaseOrder.setAllotedQuota(requestData.getAllotedQuota());
 			purchaseOrder.setRequestedQty(requestData.getRequestedQty());
 			purchaseOrder.setReceivedQty(requestData.getReceivedQty());
-			purchaseOrder.setCreationDate(DateFormatUtils.DateToString());
+			purchaseOrder.setCreationDate(DateUtils.DateToString());
 			purchaseOrder.setStatus(ApplicationConstants.PENDING_STATUS);
 			purchaseOrder.setSupplierId(requestData.getSupplierId());
 			purchaseOrder.setSupplierName(requestData.getSupplierName());
@@ -118,9 +118,9 @@ public class SpiritServiceImpl implements SpiritService {
 					if(tblPurchaseOrders.getStatus().equalsIgnoreCase(ApplicationConstants.PENDING_STATUS)) { 
 						tblPurchaseOrders.setStatus(ApplicationConstants.APPROVED_STATUS);
 						tblPurchaseOrders.setApprovedBy(dto.getLoginName());
-						tblPurchaseOrders.setApprovedDate(DateFormatUtils.DateToString());
+						tblPurchaseOrders.setApprovedDate(DateUtils.DateToString());
 						tblPurchaseOrders.setUpdatedBy(dto.getLoginName());
-						tblPurchaseOrders.setUpdatedDate(DateFormatUtils.DateToString());
+						tblPurchaseOrders.setUpdatedDate(DateUtils.DateToString());
 						TblPurchaseOrders updatedDts= tblPurchaseOrdersRepository.save(tblPurchaseOrders);
 						if(updatedDts!=null) {
 							msg="Procrument Request Approved SUCCESSFULLY";
@@ -131,9 +131,9 @@ public class SpiritServiceImpl implements SpiritService {
 							tblPurchaseOrders.getReceiptStatus().equalsIgnoreCase(ApplicationConstants.PENDING_STATUS)) {
 						tblPurchaseOrders.setReceiptStatus(ApplicationConstants.APPROVED_STATUS);
 						tblPurchaseOrders.setApprovedBy(dto.getLoginName());
-						tblPurchaseOrders.setApprovedDate(DateFormatUtils.DateToString());
+						tblPurchaseOrders.setApprovedDate(DateUtils.DateToString());
 						tblPurchaseOrders.setUpdatedBy(dto.getLoginName());
-						tblPurchaseOrders.setUpdatedDate(DateFormatUtils.DateToString());
+						tblPurchaseOrders.setUpdatedDate(DateUtils.DateToString());
 						TblPurchaseOrders updatedDts= tblPurchaseOrdersRepository.save(tblPurchaseOrders);
 						if(updatedDts!=null) {
 							msg="Receipt Approved SUCCESSFULLY";
@@ -157,7 +157,7 @@ public class SpiritServiceImpl implements SpiritService {
 		if(requestData.getRequestId()!=null) {
 			TblReceipts receipts = new TblReceipts();
 			receipts.setCpeTpNo(requestData.getCpeTpNo());
-			receipts.setCreationDate(DateFormatUtils.DateToString());
+			receipts.setCreationDate(DateUtils.DateToString());
 			receipts.setDip(requestData.getDip());
 			receipts.setDtpNo(requestData.getDtpNo());
 			receipts.setReceiptDate(requestData.getReceiptDate());
@@ -174,7 +174,7 @@ public class SpiritServiceImpl implements SpiritService {
 			if(recept!=null) {
 				TblPurchaseOrders tblPurchaseOrders = tblPurchaseOrdersRepository.findByRequestId(requestData.getRequestId());
 				if(tblPurchaseOrders!=null) {
-					tblPurchaseOrders.setUpdatedDate(DateFormatUtils.DateToString());
+					tblPurchaseOrders.setUpdatedDate(DateUtils.DateToString());
 					tblPurchaseOrders.setReceiptId(recept.getReceiptId());
 					tblPurchaseOrders.setReceiptStatus(ApplicationConstants.PENDING_STATUS);
 					TblPurchaseOrders updatedDts= tblPurchaseOrdersRepository.save(tblPurchaseOrders);
@@ -210,7 +210,7 @@ public class SpiritServiceImpl implements SpiritService {
 					receiptDts.setInvoiceNo(requestData.getInvoiceNo());
 					receiptDts.setInvoiceAmt(requestData.getInvoiceAmt());
 					receiptDts.setTaxAmt(requestData.getTaxAmt());
-					receiptDts.setUpdatedDate(DateFormatUtils.DateToString());
+					receiptDts.setUpdatedDate(DateUtils.DateToString());
 					TblReceipts receipt = tblReceiptsRepository.save(receiptDts);
 					if(receipt!=null) {
 						msg="Invoice Details Created SUCCESSFULLY";

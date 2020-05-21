@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ShipmentHeaderDto {
-	private int shipmentHdrId;
+	private Long shipmentHdrId;
 
 	private String consignmentType;
 
@@ -16,27 +16,27 @@ public class ShipmentHeaderDto {
 
 	private Integer lrNum;
 
-	private Date lrDate;
+	private String lrDate;
 
 	private String ofsNo;
 
 	private Integer depotId;
 
-	private Date creationDate;
+	private String creationDate;
 
 	private String createdBy;
 
-	private Date updatedDate;
+	private String updatedDate;
 
 	private String updatedBy;
 
 	private List<ShipmentLineDto> shipmentLineDto;
 
-	public int getShipmentHdrId() {
+	public Long getShipmentHdrId() {
 		return shipmentHdrId;
 	}
 
-	public void setShipmentHdrId(int shipmentHdrId) {
+	public void setShipmentHdrId(Long shipmentHdrId) {
 		this.shipmentHdrId = shipmentHdrId;
 	}
 
@@ -80,14 +80,6 @@ public class ShipmentHeaderDto {
 		this.lrNum = lrNum;
 	}
 
-	public Date getLrDate() {
-		return lrDate;
-	}
-
-	public void setLrDate(Date lrDate) {
-		this.lrDate = lrDate;
-	}
-
 	public String getOfsNo() {
 		return ofsNo;
 	}
@@ -104,28 +96,12 @@ public class ShipmentHeaderDto {
 		this.depotId = depotId;
 	}
 
-	public Date getCreationDate() {
-		return creationDate;
-	}
-
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
-
 	public String getCreatedBy() {
 		return createdBy;
 	}
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
-	}
-
-	public Date getUpdatedDate() {
-		return updatedDate;
-	}
-
-	public void setUpdatedDate(Date updatedDate) {
-		this.updatedDate = updatedDate;
 	}
 
 	public String getUpdatedBy() {
@@ -144,4 +120,27 @@ public class ShipmentHeaderDto {
 		this.shipmentLineDto = shipmentLineDto;
 	}
 
+	public String getLrDate() {
+		return lrDate;
+	}
+
+	public void setLrDate(String lrDate) {
+		this.lrDate = lrDate;
+	}
+
+	public String getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(String creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public String getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(String updatedDate) {
+		this.updatedDate = updatedDate;
+	}
 }

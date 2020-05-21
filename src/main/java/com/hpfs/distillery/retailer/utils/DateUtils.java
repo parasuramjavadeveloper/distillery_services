@@ -4,13 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DateFormatUtils {
+public class DateUtils {
 
-    private static final Logger logger = LoggerFactory.getLogger(DateFormatUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(DateUtils.class);
 
     public static String DateToString() {
         Date date = Calendar.getInstance().getTime();
@@ -18,7 +19,30 @@ public class DateFormatUtils {
         logger.info("DateToString Format" + strDate);
         return strDate;
     }
-    
+
+    public static Date getDateFromString(String anyStringDate) throws ParseException {
+        if(anyStringDate != null) {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date anyDate = dateFormat.parse(anyStringDate);
+            return anyDate;
+        }
+        else {
+            return null;
+        }
+    }
+
+    public static String getDateAsString(Date anyDate) {
+        if(anyDate!=null)
+        {
+            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ssZ");
+            String dateAddedOn = dateFormat.format(anyDate);
+            return dateAddedOn;
+        }
+        else
+        {
+            return null;
+        }
+    }
     public static String LastThirtyDaysDateToString() {
     	Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());

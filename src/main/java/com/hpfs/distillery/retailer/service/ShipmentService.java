@@ -2,6 +2,8 @@ package com.hpfs.distillery.retailer.service;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.List;
 
 import javax.sql.rowset.serial.SerialException;
 
@@ -12,9 +14,11 @@ public interface ShipmentService {
 	
 	
 
-	ShipmentHeader saveTransportPermitRequest(ShipmentHeaderDto requestData) throws SerialException, SQLException, IOException; 
+	ShipmentHeader saveTransportPermitRequest(ShipmentHeaderDto requestData) throws SerialException, SQLException, IOException, ParseException;
 
-	//List<LabSample> fetchAllSamples() throws IOException;
+	List<ShipmentHeader> fetchAllTPR() throws IOException;
+
+	ShipmentHeaderDto getTPR(Long tprid);
 
 	//LabInformation updateStatus(int labInfoId, String status);
 

@@ -52,7 +52,7 @@ import com.hpfs.distillery.retailer.repository.IndentMRepository;
 import com.hpfs.distillery.retailer.repository.RetailersMRepository;
 import com.hpfs.distillery.retailer.repository.TblProductsMRepository;
 import com.hpfs.distillery.retailer.utils.ApplicationConstants;
-import com.hpfs.distillery.retailer.utils.DateFormatUtils;
+import com.hpfs.distillery.retailer.utils.DateUtils;
 import com.hpfs.distillery.retailer.utils.DtoToModel;
 
 import lombok.extern.slf4j.Slf4j;
@@ -227,8 +227,8 @@ public class IndentMgmServiceImpl implements IndentMgmService {
 
 	@Override
 	public List<GridIndentMgtDts> getLastThiryDaysIndentMgmDts() {
-		System.out.println("lastThiry Days" + DateFormatUtils.LastThirtyDaysDateToString());
-		return gridIndentMgtDtsRepository.fetchLast30DaysGridIndDts(DateFormatUtils.LastThirtyDaysDateToString());
+		System.out.println("lastThiry Days" + DateUtils.LastThirtyDaysDateToString());
+		return gridIndentMgtDtsRepository.fetchLast30DaysGridIndDts(DateUtils.LastThirtyDaysDateToString());
 	}
 
 	@Override
@@ -270,7 +270,7 @@ public class IndentMgmServiceImpl implements IndentMgmService {
 					distInvM.setMfgDate(line.substring(19, 25));
 					distInvM.setLineId(Long.valueOf(line.substring(25, 27)));
 					distInvM.setCaseSequenceNum(Long.valueOf(line.substring(27, 32)));
-					distInvM.setCreationDate(DateFormatUtils.DateToString());
+					distInvM.setCreationDate(DateUtils.DateToString());
 					distInvM.setCreatedBy("Babasaheb");
 					System.out.println(
 							"CountryCode:" + distInvM.getCountryCode() + "-SupplierCode:" + distInvM.getSupplierCode());
@@ -288,7 +288,7 @@ public class IndentMgmServiceImpl implements IndentMgmService {
 					System.out.println("else --" + lineDt);
 					lineCount++;
 					TblDistiInvD distInvD = new TblDistiInvD();
-					distInvD.setCreationDate(DateFormatUtils.DateToString());
+					distInvD.setCreationDate(DateUtils.DateToString());
 					distInvD.setInventoryId(inventoryId);
 					distInvD.setHealNumber(Long.valueOf(lineDt.trim()));
 					TblDistiInvD distInvDDts = distiInvDRepository.save(distInvD);

@@ -19,7 +19,7 @@ import com.hpfs.distillery.retailer.model.TblProductsM;
 import com.hpfs.distillery.retailer.repository.IndentForSupplyRepository;
 import com.hpfs.distillery.retailer.repository.OrderForSupplyRepository;
 import com.hpfs.distillery.retailer.repository.TblProductsMRepository;
-import com.hpfs.distillery.retailer.utils.DateFormatUtils;
+import com.hpfs.distillery.retailer.utils.DateUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -65,9 +65,9 @@ public class IndentForSupplyAndOrderForSupplyServiceImpl implements IndentForSup
 		ifs.setRatePerCase(supplyDts.getRatePerCase());
 		ifs.setTotalAmount(supplyDts.getTotalAmount());
 		ifs.setStatus("SUBMITTED");
-		ifs.setIndentDate(DateFormatUtils.DateToString());
+		ifs.setIndentDate(DateUtils.DateToString());
 		ifs.setCreatedBy(supplyDts.getUserId().toString());
-		ifs.setCreationDate(DateFormatUtils.DateToString());
+		ifs.setCreationDate(DateUtils.DateToString());
 		return indentForSupplyRepository.save(ifs);
 	}
 
@@ -98,7 +98,7 @@ public class IndentForSupplyAndOrderForSupplyServiceImpl implements IndentForSup
 		ofs.setApprovedBy(requestData.getApprovedBy());
 		ofs.setCreatedBy(requestData.getCreatedBy());
 		ofs.setUpdatedBy(requestData.getUpdatedBy());
-		ofs.setCreationDate(DateFormatUtils.DateToString());
+		ofs.setCreationDate(DateUtils.DateToString());
 		return orderForSupplyRepository.save(ofs);
 	}
 

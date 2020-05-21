@@ -17,7 +17,7 @@ import com.hpfs.distillery.retailer.repository.RetailersMRepository;
 import com.hpfs.distillery.retailer.repository.TblWalletRepository;
 import com.hpfs.distillery.retailer.repository.WalletTransactionsRepository;
 import com.hpfs.distillery.retailer.utils.CsvUtils;
-import com.hpfs.distillery.retailer.utils.DateFormatUtils;
+import com.hpfs.distillery.retailer.utils.DateUtils;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -80,7 +80,7 @@ public class WalletServiceImpl implements WalletService {
 				wallet.setAddedDate(requestData.getAddedDate());
 				wallet.setTxnRefNum(requestData.getTxnRefNum());
 				wallet.setUserId(requestData.getUserId());
-				wallet.setUpdatedDate(DateFormatUtils.DateToString());
+				wallet.setUpdatedDate(DateUtils.DateToString());
 				if(tblWalletRepository.save(wallet)!=null) {
 					msg="SUCCESSFULLY updated";
 				}
@@ -92,7 +92,7 @@ public class WalletServiceImpl implements WalletService {
 				wallet.setAddedDate(requestData.getAddedDate());
 				wallet.setTxnRefNum(requestData.getTxnRefNum());
 				wallet.setUserId(requestData.getUserId());
-				wallet.setCreationDate(DateFormatUtils.DateToString());
+				wallet.setCreationDate(DateUtils.DateToString());
 				if(tblWalletRepository.save(wallet)!=null) {
 					msg="SUCCESSFULLY saved";
 				}
@@ -119,7 +119,7 @@ public class WalletServiceImpl implements WalletService {
 				wallet.setAddedDate(requestData.getAddedDate());
 				wallet.setTxnRefNum(requestData.getTxnRefNum());
 				wallet.setUserId(requestData.getUserId());
-				wallet.setUpdatedDate(DateFormatUtils.DateToString());
+				wallet.setUpdatedDate(DateUtils.DateToString());
 				//Newly added
 				wallet.setRetailerName(requestData.getRetailerName());
 				wallet.setRetailerType(requestData.getRetailerType());
@@ -142,7 +142,7 @@ public class WalletServiceImpl implements WalletService {
 				wallet.setAddedDate(requestData.getAddedDate());
 				wallet.setTxnRefNum(requestData.getTxnRefNum());
 				wallet.setUserId(requestData.getUserId());
-				wallet.setCreationDate(DateFormatUtils.DateToString());
+				wallet.setCreationDate(DateUtils.DateToString());
 				wallet.setRetailerName(requestData.getRetailerName());
 				wallet.setRetailerType(requestData.getRetailerType());
 				wallet.setStatus(requestData.getStatus());
@@ -198,7 +198,7 @@ public class WalletServiceImpl implements WalletService {
 				wallet.setPreviousBalance(wallet.getAvailableBalance());
 				Long availableBalance=wallet.getAvailableBalance()+walletAmountupdDto.getAmount();
 				wallet.setAvailableBalance(availableBalance);
-				wallet.setUpdatedDate(DateFormatUtils.DateToString());
+				wallet.setUpdatedDate(DateUtils.DateToString());
 				wallet.setUpdatedBy(walletAmountupdDto.getUpdatedBy());
 				wallet=tblWalletRepository.save(wallet);
 				
@@ -214,7 +214,7 @@ public class WalletServiceImpl implements WalletService {
 					tblWalletTransactions.setChallanDate(walletAmountupdDto.getChallanDate());
 					tblWalletTransactions.setBankName(walletAmountupdDto.getBankName());
 					tblWalletTransactions.setBankLocation(walletAmountupdDto.getBankLocation());
-					tblWalletTransactions.setTransactionDate(DateFormatUtils.DateToString());
+					tblWalletTransactions.setTransactionDate(DateUtils.DateToString());
 					tblwalletTransactionsRepository.save(tblWalletTransactions);
 					
 				}
@@ -223,7 +223,7 @@ public class WalletServiceImpl implements WalletService {
 				wallet.setPreviousBalance(wallet.getAvailableBalance());
 				Long availableBalance=wallet.getAvailableBalance()-walletAmountupdDto.getAmount();
 				wallet.setAvailableBalance(availableBalance);
-				wallet.setUpdatedDate(DateFormatUtils.DateToString());
+				wallet.setUpdatedDate(DateUtils.DateToString());
 				wallet.setUpdatedBy(walletAmountupdDto.getUpdatedBy());
 				wallet=tblWalletRepository.save(wallet);
 				
@@ -239,7 +239,7 @@ public class WalletServiceImpl implements WalletService {
 					tblWalletTransactions.setChallanDate(walletAmountupdDto.getChallanDate());
 					tblWalletTransactions.setBankName(walletAmountupdDto.getBankName());
 					tblWalletTransactions.setBankLocation(walletAmountupdDto.getBankLocation());
-					tblWalletTransactions.setTransactionDate(DateFormatUtils.DateToString());
+					tblWalletTransactions.setTransactionDate(DateUtils.DateToString());
 					tblwalletTransactionsRepository.save(tblWalletTransactions);
 					
 				}

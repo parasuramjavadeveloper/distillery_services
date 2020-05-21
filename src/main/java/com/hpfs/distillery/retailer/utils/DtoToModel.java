@@ -2,6 +2,7 @@ package com.hpfs.distillery.retailer.utils;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,9 +44,9 @@ public class DtoToModel {
 		tblIndent_M.setAuthorisedPerson(requestData.getAuthorisedPerson());
 		tblIndent_M.setContactNumber(requestData.getContactNumber());
 		tblIndent_M.setDescription(requestData.getDescription());
-		tblIndent_M.setNeedByDate(DateFormatUtils.DateToString());
+		tblIndent_M.setNeedByDate(DateUtils.DateToString());
 		tblIndent_M.setVehicleNumber(requestData.getVehicleNumber());
-		tblIndent_M.setCreationDate(DateFormatUtils.DateToString());
+		tblIndent_M.setCreationDate(DateUtils.DateToString());
 		tblIndent_M.setStatus(ApplicationConstants.ACTIVE_STATUS);
 		// tblIndent_M.setCreatedBy(us.getSid());
 		return tblIndent_M;
@@ -63,7 +64,7 @@ public class DtoToModel {
 				tblIndent_D.setProductDescription(d.getProductDescription());
 				tblIndent_D.setUnitPrice(d.getUnitPrice());
 				tblIndent_D.setTotal_price(d.getTotalPrice());
-				tblIndent_D.setCreationDate(DateFormatUtils.DateToString());
+				tblIndent_D.setCreationDate(DateUtils.DateToString());
 				// tblIndent_D.setCreatedBy(us.getSid());
 				list.add(tblIndent_D);
 			}
@@ -128,7 +129,7 @@ public class DtoToModel {
 		TblHologramDetails tblHologram_M = new TblHologramDetails();
 		tblHologram_M.setIndentNum(requestData.getIndentNum());
 		tblHologram_M.setQuantity(requestData.getQuantity());
-		tblHologram_M.setCreationDate(DateFormatUtils.DateToString());
+		tblHologram_M.setCreationDate(DateUtils.DateToString());
 		tblHologram_M.setPurpose(requestData.getPurpose());
 		tblHologram_M.setStatus(requestData.getStatus());
 		// tblHologram_M.setStatus(ApplicationConstants.ACTIVE_STATUS);
@@ -143,7 +144,7 @@ public class DtoToModel {
 				TblHologramDetails tblHologram_M = new TblHologramDetails();
 				tblHologram_M.setIndentNum(requestData.getIndentNum());
 				tblHologram_M.setQuantity(requestData.getQuantity());
-				tblHologram_M.setCreationDate(DateFormatUtils.DateToString());
+				tblHologram_M.setCreationDate(DateUtils.DateToString());
 				tblHologram_M.setPurpose(requestData.getPurpose());
 				tblHologram_M.setStatus(requestData.getStatus());
 				list.add(tblHologram_M);
@@ -178,7 +179,7 @@ public class DtoToModel {
 		tblCartDetails.setQuantity(requestData.getQuantity());
 		tblCartDetails.setUnitPrice(requestData.getUnitPrice());
 		tblCartDetails.settotalPrice(requestData.getTotalPrice());
-		tblCartDetails.setCreationDate(DateFormatUtils.DateToString());
+		tblCartDetails.setCreationDate(DateUtils.DateToString());
 		tblCartDetails.setCreatedBy(requestData.getCreatedBy());
 		tblCartDetails.setUpdatedDate(requestData.getUpdatedDate());
 		tblCartDetails.setUpdatedBy(requestData.getUpdatedBy());
@@ -199,7 +200,7 @@ public class DtoToModel {
 				tblRetailerPaymentDetails.setStatus(d.getStatus());
 				tblRetailerPaymentDetails.setAmount(d.getAmount());
 				tblRetailerPaymentDetails.setChequeNumber(d.getChequeNumber());
-				tblRetailerPaymentDetails.setCreationDate(DateFormatUtils.DateToString());
+				tblRetailerPaymentDetails.setCreationDate(DateUtils.DateToString());
 				tblRetailerPaymentDetails.setCreatedBy(d.getCreatedBy());
 				tblRetailerPaymentDetails.setUpdatedDate(d.getUpdatedDate());
 				tblRetailerPaymentDetails.setUpdatedBy(d.getUpdatedBy());
@@ -285,22 +286,22 @@ public class DtoToModel {
 
 	}
 	
-	public ShipmentHeader toShipmentHeader(ShipmentHeaderDto requestData) throws SerialException, SQLException, IOException {
+	public ShipmentHeader toShipmentHeader(ShipmentHeaderDto requestData) throws SerialException, SQLException, IOException, ParseException {
 		ShipmentHeader shipmentHeader = new ShipmentHeader(); 
 		
 		if (requestData != null) {
 
 			shipmentHeader.setConsignmentType(requestData.getConsignmentType());
 			shipmentHeader.setCreatedBy(requestData.getCreatedBy());
-			shipmentHeader.setCreationDate(requestData.getCreationDate());
+			shipmentHeader.setCreationDate(DateUtils.getDateFromString(requestData.getCreationDate()));
 			shipmentHeader.setDepotId(requestData.getDepotId());
-			shipmentHeader.setLrDate(requestData.getLrDate());
+			shipmentHeader.setLrDate(DateUtils.getDateFromString(requestData.getLrDate()));
 			shipmentHeader.setLrNum(requestData.getLrNum());
 			shipmentHeader.setOfsNo(requestData.getOfsNo()); 
 			shipmentHeader.setRoute(requestData.getRoute());
 			shipmentHeader.setTransporter(requestData.getTransporter());
 			shipmentHeader.setUpdatedBy(requestData.getUpdatedBy());
-			shipmentHeader.setUpdatedDate(requestData.getUpdatedDate());
+			shipmentHeader.setUpdatedDate(DateUtils.getDateFromString(requestData.getUpdatedDate()));
 			shipmentHeader.setVehicleNum(requestData.getVehicleNum()); 
 			shipmentHeader.setShipmentLine(buildShipmentLine(requestData.getShipmentLineDto())); 
 		}
@@ -327,12 +328,14 @@ public class DtoToModel {
 		
 	}
 	
-	private List<ShipmentLine> buildShipmentLine(List<ShipmentLineDto> shipmentLineDtoList) throws IOException {
+	private List<ShipmentLine> buildShipmentLine(List<ShipmentLineDto> shipmentLineDtoList) throws IOException, ParseException {
 		List<ShipmentLine> shipmentLineList=new ArrayList<>();
 		if(shipmentLineList!=null)
 		{
 			for (ShipmentLineDto d : shipmentLineDtoList) {
 				ShipmentLine shipmentLine=new ShipmentLine();
+				shipmentLine.setCreationDate(DateUtils.getDateFromString(d.getCreationDate()));
+				shipmentLine.setUpdatedDate(DateUtils.getDateFromString(d.getUpdatedDate()));
 				BeanUtils.copyProperties(d, shipmentLine);
 				shipmentLineList.add(shipmentLine);
 			}

@@ -29,7 +29,7 @@ import com.hpfs.distillery.retailer.repository.UserPermissons;
 import com.hpfs.distillery.retailer.repository.UsersRepository;
 import com.hpfs.distillery.retailer.repository.UsersRolesMappingRepository;
 import com.hpfs.distillery.retailer.utils.ApplicationConstants;
-import com.hpfs.distillery.retailer.utils.DateFormatUtils;
+import com.hpfs.distillery.retailer.utils.DateUtils;
 import com.hpfs.distillery.retailer.utils.GenerationOTP;
 
 import lombok.extern.slf4j.Slf4j;
@@ -113,7 +113,7 @@ public class UserServiceImpl implements UserService {
 				user.setPassword(requestData.getPassword());
 				user.setMobileNumber(requestData.getMobileNumber());
 				user.setStatus(ApplicationConstants.ACTIVE_STATUS);
-				user.setCreationDate(DateFormatUtils.DateToString());
+				user.setCreationDate(DateUtils.DateToString());
 				user.setCreatedBy("ADMIN");
 				userDts= usersRepository.save(user);
 				List<TblRoleMapping> roleMapList = new ArrayList<>();
@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
 						roleMap.setUserId(userDts.getUserId());
 						roleMap.setRoleId(roleId);
 						roleMap.setStatus(ApplicationConstants.ACTIVE_STATUS);
-						roleMap.setCreationDate(DateFormatUtils.DateToString());
+						roleMap.setCreationDate(DateUtils.DateToString());
 						roleMap.setCreatedBy("ADMIN");
 						TblRoleMapping roleMapDts  = usersRolesMappingRepository.save(roleMap);
 						if(roleMapDts!=null) {
@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService {
 						roleMap.setRoleId(roleDto.getRoleId());
 						roleMap.setStatus(ApplicationConstants.ACTIVE_STATUS);
 						roleMap.setDescription(roleDto.getRoleName());
-						roleMap.setCreationDate(DateFormatUtils.DateToString());
+						roleMap.setCreationDate(DateUtils.DateToString());
 						roleMap.setCreatedBy("ADMIN");
 						TblRoleMapping roleMapDts  = usersRolesMappingRepository.save(roleMap);
 						if(roleMapDts!=null) {
@@ -162,7 +162,7 @@ public class UserServiceImpl implements UserService {
 						tblUsers.setPassword(requestData.getPassword());
 						tblUsers.setMobileNumber(requestData.getMobileNumber());
 						tblUsers.setStatus(ApplicationConstants.ACTIVE_STATUS);
-						tblUsers.setUpdatedDate(DateFormatUtils.DateToString());
+						tblUsers.setUpdatedDate(DateUtils.DateToString());
 						tblUsers.setUpdatedBy("ADMIN");
 						userUpdateDts= usersRepository.save(tblUsers);
 						List<TblRoleMapping> roleMapList = new ArrayList<>();
@@ -177,7 +177,7 @@ public class UserServiceImpl implements UserService {
 								roleMap.setRoleId(roleId);
 								roleMap.setStatus(ApplicationConstants.ACTIVE_STATUS);
 								//roleMap.setDescription(roleDto.getRoleName());
-								roleMap.setCreationDate(DateFormatUtils.DateToString());
+								roleMap.setCreationDate(DateUtils.DateToString());
 								roleMap.setCreatedBy("ADMIN");
 								TblRoleMapping roleMapDts  = usersRolesMappingRepository.save(roleMap);
 								if(roleMapDts!=null) {
@@ -213,7 +213,7 @@ public class UserServiceImpl implements UserService {
 				if(role!=null) {
 					role.setRoleName(requestData.getRoleName());
 					role.setUpdatedBy("ADMIN");
-					role.setUpdatedDate(DateFormatUtils.DateToString());
+					role.setUpdatedDate(DateUtils.DateToString());
 					role.setRoleType(requestData.getRoleType());
 					role.setDescription(requestData.getRoleDescription());
 					TblRoles updatedRole = tblRolesRepository.save(role);
@@ -253,7 +253,7 @@ public class UserServiceImpl implements UserService {
 				role.setRoleType(requestData.getRoleType());
 				role.setDescription(requestData.getRoleDescription());
 				role.setStatus(ApplicationConstants.ACTIVE_STATUS);
-				role.setCreationDate(DateFormatUtils.DateToString());
+				role.setCreationDate(DateUtils.DateToString());
 				role.setCreatedBy("ADMIN");
 				TblRoles r = tblRolesRepository.save(role);
 				System.out.println("Created Role, roleId "+ r.getRoleId());
@@ -452,7 +452,7 @@ public class UserServiceImpl implements UserService {
 				user.setEmailId(requestData.getEmailId());
 				user.setMobileNumber(requestData.getMobileNumber());
 				user.setPassword(requestData.getPassword());
-				user.setUpdatedDate(DateFormatUtils.DateToString());
+				user.setUpdatedDate(DateUtils.DateToString());
 				user = usersRepository.save(user);
 			}
 			

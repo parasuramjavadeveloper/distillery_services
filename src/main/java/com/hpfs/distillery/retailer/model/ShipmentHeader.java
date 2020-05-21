@@ -24,7 +24,7 @@ public class ShipmentHeader {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "shipment_hdr_id")
-	private int shipmentHdrId;
+	private Long shipmentHdrId;
 
 	@Column(name = "consignment_type")
 	private String consignmentType;
@@ -101,11 +101,11 @@ public class ShipmentHeader {
 		this.updatedBy = updatedBy;
 	}
 
-	public int getShipmentHdrId() {
+	public Long getShipmentHdrId() {
 		return shipmentHdrId;
 	}
 
-	public void setShipmentHdrId(int shipmentHdrId) {
+	public void setShipmentHdrId(Long shipmentHdrId) {
 		this.shipmentHdrId = shipmentHdrId;
 	}
 
