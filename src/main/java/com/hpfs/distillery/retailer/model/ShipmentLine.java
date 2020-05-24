@@ -1,5 +1,7 @@
 package com.hpfs.distillery.retailer.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -16,9 +18,10 @@ import javax.persistence.TemporalType;
 public class ShipmentLine {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(generator="system-uuid")
+	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	@Column(name = "shipment_line_id")
-	private Integer shipmentLineId;
+	private String shipmentLineId;
 	@Column(name = "product_code")
 	private String productCode;
 	@Column(name = "brand_name")
@@ -45,12 +48,12 @@ public class ShipmentLine {
 
 	@Column(name = "updated_by")
 	private String updatedBy;
-	
-	public Integer getShipmentLineId() {
+
+	public String getShipmentLineId() {
 		return shipmentLineId;
 	}
 
-	public void setShipmentLineId(Integer shipmentLineId) {
+	public void setShipmentLineId(String shipmentLineId) {
 		this.shipmentLineId = shipmentLineId;
 	}
 

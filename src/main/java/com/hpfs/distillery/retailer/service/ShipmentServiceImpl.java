@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Resource;
 import javax.sql.rowset.serial.SerialException;
@@ -24,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class ShipmentServiceImpl implements ShipmentService {
+
 	
 	@Resource
 	ShipmentHeaderRepository shipmentHeaderRepository;
@@ -41,7 +43,7 @@ public class ShipmentServiceImpl implements ShipmentService {
 	}
 
 	@Override
-	public ShipmentHeaderDto getTPR(Long tprid) {
+	public ShipmentHeaderDto getTPR(String tprid) {
 		ShipmentHeader shipmentHeader = shipmentHeaderRepository.getOne(tprid);
 		return buildShipmentHeaderDto(shipmentHeader);
 	}

@@ -1,5 +1,7 @@
 package com.hpfs.distillery.retailer.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,9 +24,10 @@ import javax.persistence.Transient;
 public class ShipmentHeader {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(generator="system-uuid")
+	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	@Column(name = "shipment_hdr_id")
-	private Long shipmentHdrId;
+	private String shipmentHdrId;
 
 	@Column(name = "consignment_type")
 	private String consignmentType;
@@ -69,6 +72,10 @@ public class ShipmentHeader {
 	@JoinColumn(name = "shipment_hdr_id")
 	private List<ShipmentLine> shipmentLine = new ArrayList<>();
 
+	public String getShipmentHdrId() {
+		return shipmentHdrId;
+	}
+
 	public Date getCreationDate() {
 		return creationDate;
 	}
@@ -99,14 +106,6 @@ public class ShipmentHeader {
 
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
-	}
-
-	public Long getShipmentHdrId() {
-		return shipmentHdrId;
-	}
-
-	public void setShipmentHdrId(Long shipmentHdrId) {
-		this.shipmentHdrId = shipmentHdrId;
 	}
 
 	public String getConsignmentType() {
@@ -181,4 +180,7 @@ public class ShipmentHeader {
 		this.shipmentLine = shipmentLine;
 	}
 
+	public void setShipmentHdrId(String shipmentHdrId) {
+		this.shipmentHdrId = shipmentHdrId;
+	}
 }

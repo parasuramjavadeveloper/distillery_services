@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.sql.rowset.serial.SerialException;
 
@@ -36,6 +37,11 @@ import com.hpfs.distillery.retailer.model.TblShortageDetails;
 import com.hpfs.distillery.retailer.model.VehicleRoute;
 
 public class DtoToModel {
+	private static AtomicInteger at = new AtomicInteger(0);
+
+	public int getNextCountValue() {
+		return at.incrementAndGet();
+	}
 
 	public TblIndent_M toTblIndentM(IndentCreationDto requestData, UserDetails us) {
 		TblIndent_M tblIndent_M = new TblIndent_M();
@@ -291,6 +297,9 @@ public class DtoToModel {
 		
 		if (requestData != null) {
 
+			StringBuffer tprNo = new StringBuffer("TPR");
+			tprNo.append(this.getNextCountValue());
+			shipmentHeader.setShipmentHdrId(tprNo.toString());
 			shipmentHeader.setConsignmentType(requestData.getConsignmentType());
 			shipmentHeader.setCreatedBy(requestData.getCreatedBy());
 			shipmentHeader.setCreationDate(DateUtils.getDateFromString(requestData.getCreationDate()));
@@ -334,6 +343,9 @@ public class DtoToModel {
 		{
 			for (ShipmentLineDto d : shipmentLineDtoList) {
 				ShipmentLine shipmentLine=new ShipmentLine();
+				StringBuffer lineNo = new StringBuffer("SLINE");
+				lineNo.append(this.getNextCountValue());
+				shipmentLine.setShipmentLineId(lineNo.toString());
 				shipmentLine.setCreationDate(DateUtils.getDateFromString(d.getCreationDate()));
 				shipmentLine.setUpdatedDate(DateUtils.getDateFromString(d.getUpdatedDate()));
 				BeanUtils.copyProperties(d, shipmentLine);

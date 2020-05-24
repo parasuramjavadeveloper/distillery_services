@@ -68,7 +68,7 @@ public class ShipmentController {
     }
 
     @GetMapping("{tprid}")
-    public ResponseEntity<ShipmentHeaderDto> getTPR(@PathVariable("tprid") Long tprid) {
+    public ResponseEntity<ShipmentHeaderDto> getTPR(@PathVariable("tprid") String tprid) {
         final ShipmentHeaderDto tpr = shipmentService.getTPR(tprid);
         if (tpr == null) {
             return new ResponseEntity<>((ShipmentHeaderDto) null, HttpStatus.NOT_FOUND);

@@ -1,7 +1,7 @@
 package com.hpfs.distillery.retailer.dto;
 
 public class ShipmentLineDto {
-    private Integer shipmentLineId;
+    private String shipmentLineId;
     private String productCode;
     private String brandName;
     private Integer size;
@@ -13,11 +13,11 @@ public class ShipmentLineDto {
     private String updatedDate;
     private String updatedBy;
 
-    public Integer getShipmentLineId() {
+    public String getShipmentLineId() {
         return shipmentLineId;
     }
 
-    public void setShipmentLineId(Integer shipmentLineId) {
+    public void setShipmentLineId(String shipmentLineId) {
         this.shipmentLineId = shipmentLineId;
     }
 

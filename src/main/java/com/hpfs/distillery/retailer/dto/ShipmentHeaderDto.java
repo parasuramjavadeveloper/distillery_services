@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ShipmentHeaderDto {
-	private Long shipmentHdrId;
+	private String shipmentHdrId;
 
 	private String consignmentType;
 
@@ -32,11 +32,11 @@ public class ShipmentHeaderDto {
 
 	private List<ShipmentLineDto> shipmentLineDto;
 
-	public Long getShipmentHdrId() {
+	public String getShipmentHdrId() {
 		return shipmentHdrId;
 	}
 
-	public void setShipmentHdrId(Long shipmentHdrId) {
+	public void setShipmentHdrId(String shipmentHdrId) {
 		this.shipmentHdrId = shipmentHdrId;
 	}
 

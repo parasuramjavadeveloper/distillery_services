@@ -18,7 +18,7 @@ public interface ShipmentService {
 
 	List<ShipmentHeader> fetchAllTPR() throws IOException;
 
-	ShipmentHeaderDto getTPR(Long tprid);
+	ShipmentHeaderDto getTPR(String tprid);
 
 	//LabInformation updateStatus(int labInfoId, String status);
 
