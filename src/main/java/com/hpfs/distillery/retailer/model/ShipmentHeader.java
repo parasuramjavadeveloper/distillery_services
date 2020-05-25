@@ -1,32 +1,22 @@
 package com.hpfs.distillery.retailer.model;
 
+import com.hpfs.distillery.retailer.repository.IDGenerator;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "shipment_hdr")
 public class ShipmentHeader {
 
+
 	@Id
-	@GeneratedValue(generator="system-uuid")
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
-	@Column(name = "shipment_hdr_id")
+	@GeneratedValue(generator = IDGenerator.generatorName)
+	@GenericGenerator(name = IDGenerator.generatorName, strategy = "com.hpfs.distillery.retailer.repository.IDGenerator")
+	@Column(name = "shipment_hdr_id", nullable = false, length = 15)
 	private String shipmentHdrId;
 
 	@Column(name = "consignment_type")

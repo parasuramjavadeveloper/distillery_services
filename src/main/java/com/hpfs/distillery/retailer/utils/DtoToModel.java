@@ -297,9 +297,6 @@ public class DtoToModel {
 		
 		if (requestData != null) {
 
-			StringBuffer tprNo = new StringBuffer("TPR");
-			tprNo.append(this.getNextCountValue());
-			shipmentHeader.setShipmentHdrId(tprNo.toString());
 			shipmentHeader.setConsignmentType(requestData.getConsignmentType());
 			shipmentHeader.setCreatedBy(requestData.getCreatedBy());
 			shipmentHeader.setCreationDate(DateUtils.getDateFromString(requestData.getCreationDate()));
@@ -345,7 +342,7 @@ public class DtoToModel {
 				ShipmentLine shipmentLine=new ShipmentLine();
 				StringBuffer lineNo = new StringBuffer("SLINE");
 				lineNo.append(this.getNextCountValue());
-				shipmentLine.setShipmentLineId(lineNo.toString());
+				//shipmentLine.setShipmentLineId(lineNo.toString().substring(0,10));
 				shipmentLine.setCreationDate(DateUtils.getDateFromString(d.getCreationDate()));
 				shipmentLine.setUpdatedDate(DateUtils.getDateFromString(d.getUpdatedDate()));
 				BeanUtils.copyProperties(d, shipmentLine);

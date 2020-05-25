@@ -1,5 +1,6 @@
 package com.hpfs.distillery.retailer.model;
 
+import com.hpfs.distillery.retailer.repository.IDGenerator;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Date;
@@ -18,9 +19,9 @@ import javax.persistence.TemporalType;
 public class ShipmentLine {
 
 	@Id
-	@GeneratedValue(generator="system-uuid")
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
-	@Column(name = "shipment_line_id")
+	@GeneratedValue(generator = IDGenerator.generatorName)
+	@GenericGenerator(name = IDGenerator.generatorName, strategy = "com.hpfs.distillery.retailer.repository.LineIDGenerator")
+	@Column(name = "shipment_line_id", nullable = false, length = 15)
 	private String shipmentLineId;
 	@Column(name = "product_code")
 	private String productCode;
