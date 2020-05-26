@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
+import com.hpfs.distillery.retailer.model.*;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,17 +30,6 @@ import com.hpfs.distillery.retailer.dto.PageInfo;
 import com.hpfs.distillery.retailer.dto.Request;
 import com.hpfs.distillery.retailer.dto.TblDistilleryInvMDto;
 import com.hpfs.distillery.retailer.dto.UserDetails;
-import com.hpfs.distillery.retailer.model.CreateIndentMgtDts;
-import com.hpfs.distillery.retailer.model.GridIndentMgtDts;
-import com.hpfs.distillery.retailer.model.TblDepot_M;
-import com.hpfs.distillery.retailer.model.TblDistiInvD;
-import com.hpfs.distillery.retailer.model.TblDistiInvM;
-import com.hpfs.distillery.retailer.model.TblDistilleries;
-import com.hpfs.distillery.retailer.model.TblDistilleryInvM;
-import com.hpfs.distillery.retailer.model.TblIndent_D;
-import com.hpfs.distillery.retailer.model.TblIndent_M;
-import com.hpfs.distillery.retailer.model.TblProductsM;
-import com.hpfs.distillery.retailer.model.TblRetailers_M;
 import com.hpfs.distillery.retailer.repository.CreateDistiInvMRepository;
 import com.hpfs.distillery.retailer.repository.DepotMRepository;
 import com.hpfs.distillery.retailer.repository.DistiInvDRepository;
@@ -213,6 +203,19 @@ public class IndentMgmServiceImpl implements IndentMgmService {
 	@Override
 	public List<TblDepot_M> getDepotDts() {
 		return depotMRepository.findAll();
+	}
+
+	@Override
+	public List<DepotNames> getDepots() {
+		List<TblDepot_M> depos= depotMRepository.findAll();
+		List<DepotNames> deposList = new ArrayList<>();
+		depos.forEach(tblDepot_m -> {
+			DepotNames depotNames = new DepotNames();
+			depotNames.setDepotId(tblDepot_m.getDepotId());
+			depotNames.setDepotName(tblDepot_m.getDepotName());
+			deposList.add(depotNames);
+		});
+		return deposList;
 	}
 
 	@Override

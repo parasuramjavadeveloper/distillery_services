@@ -2,9 +2,12 @@ package com.hpfs.distillery.retailer.controller;
 
 import java.util.List;
 
+import com.hpfs.distillery.retailer.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,16 +21,7 @@ import com.hpfs.distillery.retailer.dto.Request;
 import com.hpfs.distillery.retailer.dto.Response;
 import com.hpfs.distillery.retailer.dto.ResponseHeader;
 import com.hpfs.distillery.retailer.dto.TblDistilleryInvMDto;
-import com.hpfs.distillery.retailer.model.TblUsers;
 import com.hpfs.distillery.retailer.dto.UserDetails;
-import com.hpfs.distillery.retailer.model.CreateIndentMgtDts;
-import com.hpfs.distillery.retailer.model.GridIndentMgtDts;
-import com.hpfs.distillery.retailer.model.TblDepot_M;
-import com.hpfs.distillery.retailer.model.TblDistilleries;
-import com.hpfs.distillery.retailer.model.TblIndent_D;
-import com.hpfs.distillery.retailer.model.TblIndent_M;
-import com.hpfs.distillery.retailer.model.TblProductsM;
-import com.hpfs.distillery.retailer.model.TblRetailers_M;
 import com.hpfs.distillery.retailer.service.IndentMgmService;
 
 import io.swagger.annotations.Api;
@@ -121,7 +115,12 @@ public class IndentManagementController {
 				responseDataList);
 
 	}
-	
+
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/fetchDepoNames")
+	public ResponseEntity<List<DepotNames>> getDepoNames() {
+		final List<DepotNames> depotList = indentMgmService.getDepots();
+		return new ResponseEntity<>(depotList, HttpStatus.OK);
+	}
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/fetchDistilleries")
 	public Response<TblDistilleries> getDistilleries(){
 		List<TblDistilleries> responseDataList = indentMgmService.getDistilleries();

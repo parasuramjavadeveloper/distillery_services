@@ -25,6 +25,7 @@ public interface IndentMgmService {
 	TblIndent_M saveIndentDts(IndentCreationDto requestData, UserDetails us);
 	List<TblIndent_D> getInvMgmDts(TblIndent_D search, PageInfo pageInfo);
     List<TblDepot_M> getDepotDts();
+	List<DepotNames> getDepots();
 	List<TblRetailers_M> getRetailersMDts();
 
 	List<GridIndentMgtDts> getIndentMgmDts(GridIndentMgtDts requestData, PageInfo pageInfo);
