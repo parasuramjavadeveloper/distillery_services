@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
 		TblUsers userDts = null;
 		int count =0;
 		try {
-				if(requestData.getUserId() == null) {
+				if(requestData.getUserId() == null || requestData.getUserId()==0) {
 				TblUsers user = new TblUsers();
 				user.setUserName(requestData.userName);
 				user.setFirstName(requestData.getFirstName());
@@ -114,6 +114,16 @@ public class UserServiceImpl implements UserService {
 				user.setMobileNumber(requestData.getMobileNumber());
 				user.setStatus(ApplicationConstants.ACTIVE_STATUS);
 				user.setCreationDate(DateUtils.DateToString());
+				user.setDeptId(requestData.getDeptId());
+				if(requestData.getDepartment()!=null){
+					user.setDepartment(requestData.getDepartment());
+					if(requestData.getDepartment().equalsIgnoreCase("Distillery")){
+						user.setIsDistillery("YES");
+					}
+					if(requestData.getDepartment().equalsIgnoreCase("Depot")){
+						user.setIsDepo("YES");
+					}
+				}
 				user.setCreatedBy("ADMIN");
 				userDts= usersRepository.save(user);
 				List<TblRoleMapping> roleMapList = new ArrayList<>();

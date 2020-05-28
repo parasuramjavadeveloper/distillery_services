@@ -129,6 +129,12 @@ public class IndentManagementController {
 
 	}
 
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/distilleryNames")
+	public ResponseEntity<List<DistilleryNames>> getDistilleryNames() {
+		final List<DistilleryNames> distilleryNamesListList = indentMgmService.getDistilleryNames();
+		return new ResponseEntity<>(distilleryNamesListList, HttpStatus.OK);
+	}
+
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/fetchRetailersMDts")
 	public Response<TblRetailers_M> getRetailersMDts(){
 		List<TblRetailers_M> responseDataList = indentMgmService.getRetailersMDts();

@@ -32,9 +32,19 @@ public class UserRolesDto {
 	public String status;
 	public String favourites ;
 	public List<Long> roleIds;
-	
+	public String department;
+	public String isDistillery;
+	public String isDepo;
+	public Long deptId;
 
-	
+	public Long getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(Long deptId) {
+		this.deptId = deptId;
+	}
+
 	public List<Long> getRoleIds() {
 		return roleIds;
 	}
@@ -126,5 +136,29 @@ public class UserRolesDto {
 
 	public void setFavourites(String favourites) {
 		this.favourites = favourites;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public String getIsDistillery() {
+		return isDistillery;
+	}
+
+	public void setIsDistillery(String isDistillery) {
+		this.isDistillery = isDistillery;
+	}
+
+	public String getIsDepo() {
+		return isDepo;
+	}
+
+	public void setIsDepo(String isDepo) {
+		this.isDepo = isDepo;
 	}
 }

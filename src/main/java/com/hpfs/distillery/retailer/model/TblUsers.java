@@ -31,20 +31,9 @@ public class TblUsers implements Serializable{
 	 */
 	private static final long serialVersionUID = 5558864631806934708L;
 
-	
-	public Long getDistId() {
-		return distId;
-	}
-
-	public void setDistId(Long distId) {
-		this.distId = distId;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
-	
 
 	public List<TblRoleMapping> getRolesList() {
 		return rolesList;
@@ -94,19 +83,26 @@ public class TblUsers implements Serializable{
 	
 	@OneToMany
 	List<TblRoleMapping> rolesList;
+
+	@Column(name="department")
+	public String department;
+
+	@Column(name="is_distillery")
+	public String isDistillery;
+
+	@Column(name="is_depo")
+	public String isDepo;
 	
-	/*@Column(name="distllery_id")
-	public Long distilleryId;
-	
-	public Long getDistilleryId() {
-		return distilleryId;
+	@Column(name="dept_id")
+	public Long deptId;
+
+	public Long getDeptId() {
+		return deptId;
 	}
 
-	public void setDistilleryId(Long distilleryId) {
-		this.distilleryId = distilleryId;
+	public void setDeptId(Long deptId) {
+		this.deptId = deptId;
 	}
-*/
-	
 
 	public String getLastLoginTime() {
 		return lastLoginTime;
@@ -115,11 +111,6 @@ public class TblUsers implements Serializable{
 	public void setLastLoginTime(String lastLoginTime) {
 		this.lastLoginTime = lastLoginTime;
 	}
-
-	@Column(name="dist_id")
-	public Long distId;
-
-
 
 	public Long getOtp() {
 		return otp;
@@ -246,13 +237,36 @@ public class TblUsers implements Serializable{
 		this.favourites = favourites;
 	}
 
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public String getIsDistillery() {
+		return isDistillery;
+	}
+
+	public void setIsDistillery(String isDistillery) {
+		this.isDistillery = isDistillery;
+	}
+
+	public String getIsDepo() {
+		return isDepo;
+	}
+
+	public void setIsDepo(String isDepo) {
+		this.isDepo = isDepo;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((createdBy == null) ? 0 : createdBy.hashCode());
 		result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
-		result = prime * result + ((distId == null) ? 0 : distId.hashCode());
 		result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
 		result = prime * result + ((favourites == null) ? 0 : favourites.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
@@ -288,11 +302,6 @@ public class TblUsers implements Serializable{
 			if (other.creationDate != null)
 				return false;
 		} else if (!creationDate.equals(other.creationDate))
-			return false;
-		if (distId == null) {
-			if (other.distId != null)
-				return false;
-		} else if (!distId.equals(other.distId))
 			return false;
 		if (emailId == null) {
 			if (other.emailId != null)
@@ -372,7 +381,7 @@ public class TblUsers implements Serializable{
 		return "TblUsers [userId=" + userId + ", userName=" + userName + ", firstName=" + firstName + ", lastName="
 				+ lastName + ", mobileNumber=" + mobileNumber + ", emailId=" + emailId + ", password=" + password
 				+ ", status=" + status + ", lastLoginTime=" + lastLoginTime + ", favourites=" + favourites + ", otp="
-				+ otp + ", rolesList=" + rolesList + ", distId=" + distId + ", creationDate=" + creationDate
+				+ otp + ", rolesList=" + rolesList + ", creationDate=" + creationDate
 				+ ", createdBy=" + createdBy + ", updatedDate=" + updatedDate + ", updatedBy=" + updatedBy + "]";
 	}
 

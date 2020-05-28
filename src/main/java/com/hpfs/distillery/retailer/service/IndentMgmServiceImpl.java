@@ -353,4 +353,17 @@ public class IndentMgmServiceImpl implements IndentMgmService {
 		return distilleryRepository.findAll();
 	}
 
+	@Override
+	public List<DistilleryNames> getDistilleryNames() {
+		List<TblDistilleries>  distilleryUnits= distilleryRepository.findAll();
+		List<DistilleryNames>  distilleryNamesList = new ArrayList<>();
+		distilleryUnits.forEach(distillery -> {
+			DistilleryNames distilleryName = new DistilleryNames();
+			distilleryName.setId(distillery.getDestilleryId());
+			distilleryName.setName(distillery.getDestilleryName());
+			distilleryNamesList.add(distilleryName);
+		});
+		return distilleryNamesList;
+	}
+
 }

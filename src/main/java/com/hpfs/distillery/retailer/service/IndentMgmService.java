@@ -45,5 +45,7 @@ public interface IndentMgmService {
 
 	CreateIndentMgtDts fetchIndentDtsByUserId(Long userId);
 
-	List<TblDistilleries> getDistilleries(); 
+	List<TblDistilleries> getDistilleries();
+
+    List<DistilleryNames> getDistilleryNames();
 }
