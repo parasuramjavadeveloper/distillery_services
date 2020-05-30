@@ -1,0 +1,56 @@
+application:
+  datasource:
+    defaultSchema: distillery
+    dialet: org.hibernate.dialect.MySQLDialect
+csv:
+  disti:
+    loc: C:\temp\testCSV.csv
+otp:
+  length: 6;
+server:
+  port: 9081
+sms:
+  msg: ''
+  msg1: is your Login confirmation code. Please do not share this with anyone.
+  pwd: apsms123
+  smsUrlApi: http://bulk.ap-sms.com/API/sms.php?username=
+  userName: apsms
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: admin123
+    url: jdbc:mysql://distillery-1.c5702rayu1k4.ap-south-1.rds.amazonaws.com:3306/distillery
+    username: admin
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    show-sql: true
+  mail:
+    host: smtp.gmail.com
+    password: yerramsetty@11
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          connectiontimeout: 5000
+          starttls:
+            enable: true
+          timeout: 5000
+          writetimeout: 5000
+    username: parasuramyerramsetty11@gmail.com
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
+spring-jap:
+  hibernate:
+    use-new-id-generator-mappings: false
