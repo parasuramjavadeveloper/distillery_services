@@ -3,11 +3,16 @@
  */
 package com.hpfs.distillery.retailer.service;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
+import com.hpfs.distillery.retailer.dto.IFSDto;
 import com.hpfs.distillery.retailer.dto.IndentForSupplyDts;
 import com.hpfs.distillery.retailer.dto.OrderForSupplyDts;
 import com.hpfs.distillery.retailer.dto.Request;
+import com.hpfs.distillery.retailer.model.IFS;
 import com.hpfs.distillery.retailer.model.TblIndentForSupply;
 import com.hpfs.distillery.retailer.model.TblOrderForSupply;
 import com.hpfs.distillery.retailer.model.TblProductsM;
@@ -22,6 +27,8 @@ public interface IndentForSupplyAndOrderForSupplyService {
 	List<TblProductsM> fetchProdDtsByProdName(Request<TblProductsM> request);
 
 	TblIndentForSupply saveIFS(IndentForSupplyDts ifs);
+
+	IFS saveIndentTypes(IFSDto saveIfsType) throws ParseException, SQLException, IOException;
 
 	List<TblIndentForSupply> fetchAllIFS();
 
@@ -45,7 +52,8 @@ public interface IndentForSupplyAndOrderForSupplyService {
 
 	TblIndentForSupply updateIFS(IndentForSupplyDts requestData);
 
-	Boolean deleteIFSByIndentNo(String indentNo);      
-	
-	
+	Boolean deleteIFSByIndentNo(String indentNo);
+
+
+    List<IFS> getAllIFS();
 }

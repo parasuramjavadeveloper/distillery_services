@@ -10,31 +10,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.sql.rowset.serial.SerialException;
 
+import com.hpfs.distillery.retailer.dto.*;
+import com.hpfs.distillery.retailer.model.*;
 import org.springframework.beans.BeanUtils;
-
-import com.hpfs.distillery.retailer.dto.BreakageDetailsDto;
-import com.hpfs.distillery.retailer.dto.CartDetailsDto;
-import com.hpfs.distillery.retailer.dto.HologramDetailsDto;
-import com.hpfs.distillery.retailer.dto.IndentCreationDto;
-import com.hpfs.distillery.retailer.dto.LabInformationDto;
-import com.hpfs.distillery.retailer.dto.LabSampleDto;
-import com.hpfs.distillery.retailer.dto.ShipmentHeaderDto;
-import com.hpfs.distillery.retailer.dto.ShipmentLineDto;
-import com.hpfs.distillery.retailer.dto.ShortageDetailsDto;
-import com.hpfs.distillery.retailer.dto.UserDetails;
-import com.hpfs.distillery.retailer.dto.VehicleRouteDto;
-import com.hpfs.distillery.retailer.model.LabInformation;
-import com.hpfs.distillery.retailer.model.LabSample;
-import com.hpfs.distillery.retailer.model.ShipmentHeader;
-import com.hpfs.distillery.retailer.model.ShipmentLine;
-import com.hpfs.distillery.retailer.model.TblBreakageDetails;
-import com.hpfs.distillery.retailer.model.TblCartDetails;
-import com.hpfs.distillery.retailer.model.TblHologramDetails;
-import com.hpfs.distillery.retailer.model.TblIndent_D;
-import com.hpfs.distillery.retailer.model.TblIndent_M;
-import com.hpfs.distillery.retailer.model.TblRetailerPaymentDetails;
-import com.hpfs.distillery.retailer.model.TblShortageDetails;
-import com.hpfs.distillery.retailer.model.VehicleRoute;
 
 public class DtoToModel {
 	private static AtomicInteger at = new AtomicInteger(0);
@@ -291,6 +269,28 @@ public class DtoToModel {
 		return labSampleDto;
 
 	}
+
+	public IFS toIFS(IFSDto ifsDto) throws SerialException, SQLException, IOException, ParseException {
+		IFS ifs = new IFS();
+
+		if (ifsDto != null) {
+			//ifs.setIfsNo("IFS" + getNextCountValue());
+			ifs.setConsignmentType(ifsDto.getConsignmentType());
+			ifs.setDepotId(ifsDto.getDepotId());
+			ifs.setDistilleryId(ifsDto.getDistilleryId());
+			ifs.setCreatedBy(ifsDto.getCreatedBy());
+			ifs.setStatus(ifsDto.getStatus());
+			ifs.setIndentDate(DateUtils.getDateFromString(ifsDto.getIndentDate()));
+			ifs.setIfsType(ifsDto.getIfsType());
+			ifs.setCreationDate(DateUtils.getDateFromString(ifsDto.getCreationDate()));
+			ifs.setUpdatedBy(ifsDto.getUpdatedBy());
+			ifs.setUpdatedDate(DateUtils.getDateFromString(ifsDto.getUpdatedDate()));
+			ifs.setiFSProducts(buildIFSProducts(ifsDto.getiFSProducts()));
+		}
+
+		return ifs;
+
+	}
 	
 	public ShipmentHeader toShipmentHeader(ShipmentHeaderDto requestData) throws SerialException, SQLException, IOException, ParseException {
 		ShipmentHeader shipmentHeader = new ShipmentHeader(); 
@@ -333,6 +333,24 @@ public class DtoToModel {
 		return labInformationList;	
 		
 	}
+
+	private List<IFSProducts> buildIFSProducts(List<IFSProductsDto> ifsProductsList) throws ParseException {
+
+		List<IFSProducts> ifsProducts=new ArrayList<>();
+		if(ifsProductsList!=null)
+		{
+			for (IFSProductsDto product : ifsProductsList) {
+				IFSProducts iFSProduct=new IFSProducts();
+				iFSProduct.setCreationDate(DateUtils.getDateFromString(product.getCreationDate()));
+				iFSProduct.setUpdatedDate(DateUtils.getDateFromString(product.getUpdatedDate()));
+				iFSProduct.setIndentDate(DateUtils.getDateFromString(product.getIndentDate()));
+				BeanUtils.copyProperties(product, iFSProduct);
+				ifsProducts.add(iFSProduct);
+			}
+
+		}
+		return ifsProducts;
+	}
 	
 	private List<ShipmentLine> buildShipmentLine(List<ShipmentLineDto> shipmentLineDtoList) throws IOException, ParseException {
 		List<ShipmentLine> shipmentLineList=new ArrayList<>();
@@ -342,7 +360,6 @@ public class DtoToModel {
 				ShipmentLine shipmentLine=new ShipmentLine();
 				StringBuffer lineNo = new StringBuffer("SLINE");
 				lineNo.append(this.getNextCountValue());
-				//shipmentLine.setShipmentLineId(lineNo.toString().substring(0,10));
 				shipmentLine.setCreationDate(DateUtils.getDateFromString(d.getCreationDate()));
 				shipmentLine.setUpdatedDate(DateUtils.getDateFromString(d.getUpdatedDate()));
 				BeanUtils.copyProperties(d, shipmentLine);

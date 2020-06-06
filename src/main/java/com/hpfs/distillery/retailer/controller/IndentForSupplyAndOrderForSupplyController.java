@@ -1,8 +1,12 @@
 package com.hpfs.distillery.retailer.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
+import com.hpfs.distillery.retailer.dto.*;
+import com.hpfs.distillery.retailer.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hpfs.distillery.retailer.dto.IndentForSupplyDts;
-import com.hpfs.distillery.retailer.dto.OrderForSupplyDts;
-import com.hpfs.distillery.retailer.dto.PageInfo;
-import com.hpfs.distillery.retailer.dto.Request;
-import com.hpfs.distillery.retailer.dto.Response;
-import com.hpfs.distillery.retailer.dto.ResponseHeader;
-import com.hpfs.distillery.retailer.model.TblIndentForSupply;
-import com.hpfs.distillery.retailer.model.TblOrderForSupply;
-import com.hpfs.distillery.retailer.model.TblProductsM;
 import com.hpfs.distillery.retailer.service.IndentForSupplyAndOrderForSupplyService;
 
 import io.swagger.annotations.Api;
@@ -208,6 +203,28 @@ public class IndentForSupplyAndOrderForSupplyController {
 		List<TblIndentForSupply> listIFSByDistilleryId = indentForSupplyAndOrderForSupplyService.getIfsDetails(indentNo,distillerId,depotId);
 		return new Response<List<TblIndentForSupply>>(
 				new ResponseHeader(ResponseHeader.Status.SUCCESS, ResponseHeader.ResultSetType.LIST), listIFSByDistilleryId);
+
+	}
+
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/saveIndentTypes")
+	public Response<IFS> saveIndentTypes(@RequestBody Request<IFSDto> request) throws ParseException, SQLException, IOException {
+		IFS responseData = indentForSupplyAndOrderForSupplyService.saveIndentTypes(request.getRequestData());
+		return new Response<IFS>(
+				new ResponseHeader(ResponseHeader.Status.SUCCESS, ResponseHeader.ResultSetType.LIST), responseData);
+
+	}
+
+	@ApiOperation(value = "fetchAllIFS", notes = "fetchAllIFS", response = Response.class)
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "INVALID_REQUEST", response = Response.class),
+			@ApiResponse(code = 401, message = "NOT_AUTHORISED", response = Response.class),
+			@ApiResponse(code = 404, message = "REQUEST_NOT_FOUND", response = Response.class),
+			@ApiResponse(code = 500, message = "INTERNAL_SERVER_ERROR", response = Response.class),
+			@ApiResponse(code = 503, message = "SERVER_NOT_AVAILABLE", response = Response.class), })
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/fetchAllIFS")
+	public Response<List<IFS>> fetchAllIFS() throws IOException {
+		List<IFS> labSampleList = indentForSupplyAndOrderForSupplyService.getAllIFS();
+		return new Response<List<IFS>>(
+				new ResponseHeader(ResponseHeader.Status.SUCCESS, ResponseHeader.ResultSetType.LIST), labSampleList);
 
 	}
 	private PageInfo getPageInfo(@RequestBody(required = false) Request request) {

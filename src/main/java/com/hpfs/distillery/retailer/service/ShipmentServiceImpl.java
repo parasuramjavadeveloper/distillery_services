@@ -35,8 +35,6 @@ public class ShipmentServiceImpl implements ShipmentService {
 	public ShipmentHeader saveTransportPermitRequest(ShipmentHeaderDto requestData)
 			throws SerialException, SQLException, IOException, ParseException {
 		StringBuffer tprNo = new StringBuffer("TPR");
-		//ShipmentHeader	shipmentHeader = dtoToModel.toShipmentHeader(requestData);
-		//shipmentHeader.setShipmentHdrId(tprNo.append(shipmentHeader.getShipmentHdrId()).toString().substring(0,11));
 		return shipmentHeaderRepository.save(dtoToModel.toShipmentHeader(requestData));
 	}
 

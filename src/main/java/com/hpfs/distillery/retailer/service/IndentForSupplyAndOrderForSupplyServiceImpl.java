@@ -1,5 +1,8 @@
 package com.hpfs.distillery.retailer.service;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -8,14 +11,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
+import com.hpfs.distillery.retailer.dto.IFSDto;
+import com.hpfs.distillery.retailer.model.*;
+import com.hpfs.distillery.retailer.repository.IFSRepository;
+import com.hpfs.distillery.retailer.utils.DtoToModel;
 import org.springframework.stereotype.Service;
 
 import com.hpfs.distillery.retailer.dto.IndentForSupplyDts;
 import com.hpfs.distillery.retailer.dto.OrderForSupplyDts;
 import com.hpfs.distillery.retailer.dto.Request;
-import com.hpfs.distillery.retailer.model.TblIndentForSupply;
-import com.hpfs.distillery.retailer.model.TblOrderForSupply;
-import com.hpfs.distillery.retailer.model.TblProductsM;
 import com.hpfs.distillery.retailer.repository.IndentForSupplyRepository;
 import com.hpfs.distillery.retailer.repository.OrderForSupplyRepository;
 import com.hpfs.distillery.retailer.repository.TblProductsMRepository;
@@ -39,7 +43,12 @@ public class IndentForSupplyAndOrderForSupplyServiceImpl implements IndentForSup
 	IndentForSupplyRepository indentForSupplyRepository;
 
 	@Resource
+	IFSRepository iFSRepository;
+
+	@Resource
 	OrderForSupplyRepository orderForSupplyRepository;
+
+	DtoToModel dtoToModel = new DtoToModel();
 
 	@Override
 	public List<TblProductsM> fetchProdDtsByProdName(Request<TblProductsM> request) {
@@ -54,7 +63,6 @@ public class IndentForSupplyAndOrderForSupplyServiceImpl implements IndentForSup
 	public TblIndentForSupply saveIFS(IndentForSupplyDts supplyDts) {
 
 		TblIndentForSupply ifs = new TblIndentForSupply();
-
 		ifs.setIndentNo("IFS" + getNextCountValue());
 		ifs.setDistilleryId(supplyDts.getDistilleryId());
 		ifs.setDepotId(supplyDts.getDepotId());
@@ -69,6 +77,13 @@ public class IndentForSupplyAndOrderForSupplyServiceImpl implements IndentForSup
 		ifs.setCreatedBy(supplyDts.getUserId().toString());
 		ifs.setCreationDate(DateUtils.DateToString());
 		return indentForSupplyRepository.save(ifs);
+	}
+
+	@Override
+	public IFS saveIndentTypes(IFSDto saveIfsType) throws ParseException, SQLException, IOException {
+		IFS ifs = null;
+		ifs = iFSRepository.save(dtoToModel.toIFS(saveIfsType));
+		return ifs;
 	}
 
 	@Override
@@ -262,6 +277,11 @@ public class IndentForSupplyAndOrderForSupplyServiceImpl implements IndentForSup
 		}
 		
 		return false;
+	}
+
+	@Override
+	public List<IFS> getAllIFS() {
+		return iFSRepository.findAll();
 	}
 
 }
