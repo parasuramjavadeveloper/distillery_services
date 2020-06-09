@@ -6,6 +6,7 @@ package com.hpfs.distillery.retailer.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -15,7 +16,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name="ifs_products")
-public class IFSProducts {
+public class IFSProducts implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

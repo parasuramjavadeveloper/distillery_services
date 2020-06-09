@@ -3,10 +3,15 @@
  */
 package com.hpfs.distillery.retailer.model;
 
+import com.couchbase.client.deps.com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hpfs.distillery.retailer.repository.IDGenerator;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +23,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "ifs_m")
-public class IFS {
+public class IFS implements Serializable {
 
     @Id
     @GeneratedValue(generator = IDGenerator.generatorName)
@@ -45,7 +50,7 @@ public class IFS {
     @Temporal(TemporalType.TIMESTAMP)
     private Date indentDate;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "ifs_num", insertable = true, updatable = true, nullable=false)
     private List<IFSProducts> iFSProducts = new ArrayList<>();
 

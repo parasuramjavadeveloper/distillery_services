@@ -16,6 +16,9 @@ sms:
   smsUrlApi: http://bulk.ap-sms.com/API/sms.php?username=
   userName: apsms
 spring:
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: admin123

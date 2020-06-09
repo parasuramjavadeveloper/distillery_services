@@ -1,9 +1,11 @@
 package com.hpfs.distillery.retailer.service;
 
+import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -15,6 +17,7 @@ import com.hpfs.distillery.retailer.dto.IFSDto;
 import com.hpfs.distillery.retailer.model.*;
 import com.hpfs.distillery.retailer.repository.IFSRepository;
 import com.hpfs.distillery.retailer.utils.DtoToModel;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.hpfs.distillery.retailer.dto.IndentForSupplyDts;
@@ -260,7 +263,9 @@ public class IndentForSupplyAndOrderForSupplyServiceImpl implements IndentForSup
 
 	@Override
 	public Boolean deleteIFSByIndentNo(String indentNo) {
-		
+
+
+
 		Optional<TblIndentForSupply> ifsOptionalObj = indentForSupplyRepository.findById(indentNo);
 		
 		if(ifsOptionalObj.isPresent()) {
@@ -280,8 +285,43 @@ public class IndentForSupplyAndOrderForSupplyServiceImpl implements IndentForSup
 	}
 
 	@Override
+	public Boolean deleteIFS(String ifsNo) {
+
+		IFS ifs = getIFSByIFSNo(ifsNo);
+		iFSRepository.delete(ifs);
+
+		return true;
+	}
+
+	@Override
 	public List<IFS> getAllIFS() {
 		return iFSRepository.findAll();
+	}
+
+    @Override
+    public IFS getIFSByIFSNo(String ifsNo) {
+		IFS ifs = iFSRepository.getOne(ifsNo);
+		ifs.setiFSProducts(ifs.getiFSProducts());
+        return ifs;
+    }
+
+	@Override
+	public IFSDto updateIFSTypes(IFSDto requestData) throws ParseException {
+        IFS ifs = buildIFs(requestData);
+		return null;
+	}
+
+	private IFS buildIFs(IFSDto ifsDto) throws ParseException {
+		IFS ifs = getIFSByIFSNo(ifsDto.getIfsNo());
+		ifs.setIndentDate(DateUtils.getDateFromString(ifsDto.getIndentDate()));
+		ifs.setCreationDate(DateUtils.getDateFromString(ifsDto.getCreationDate()));
+		ifs.setUpdatedDate(DateUtils.getDateFromString(ifsDto.getUpdatedDate()));
+		String[] excludedProperties = {"indentDate","creationDate","updatedDate"};
+
+       //, new String[] {"address"}
+		BeanUtils.copyProperties(ifsDto, ifs, excludedProperties);
+	//	BeanUtils.copyProperties(ifsDto,ifs);
+		return iFSRepository.save(ifs);
 	}
 
 }

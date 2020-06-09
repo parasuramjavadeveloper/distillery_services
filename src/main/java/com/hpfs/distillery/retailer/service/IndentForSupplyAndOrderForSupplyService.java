@@ -54,6 +54,10 @@ public interface IndentForSupplyAndOrderForSupplyService {
 
 	Boolean deleteIFSByIndentNo(String indentNo);
 
-
+	Boolean deleteIFS(String ifsNo);
     List<IFS> getAllIFS();
+
+	IFS getIFSByIFSNo(String ifsNo);
+
+	IFSDto updateIFSTypes(IFSDto requestData) throws ParseException;
 }

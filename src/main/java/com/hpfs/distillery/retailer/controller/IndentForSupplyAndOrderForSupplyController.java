@@ -227,6 +227,46 @@ public class IndentForSupplyAndOrderForSupplyController {
 				new ResponseHeader(ResponseHeader.Status.SUCCESS, ResponseHeader.ResultSetType.LIST), labSampleList);
 
 	}
+
+	@ApiOperation(value = "fetchIFSByIFSNO", notes = "fetchIFSByIFSNO", response = Response.class)
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "INVALID_REQUEST", response = Response.class),
+			@ApiResponse(code = 401, message = "NOT_AUTHORISED", response = Response.class),
+			@ApiResponse(code = 404, message = "REQUEST_NOT_FOUND", response = Response.class),
+			@ApiResponse(code = 500, message = "INTERNAL_SERVER_ERROR", response = Response.class),
+			@ApiResponse(code = 503, message = "SERVER_NOT_AVAILABLE", response = Response.class), })
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/fetchIFSByIFSNO")
+	public Response<IFS> getIFSByIFSNO(@Param(value= "ifsNo") String ifsNo) throws IOException {
+		IFS ifs = indentForSupplyAndOrderForSupplyService.getIFSByIFSNo(ifsNo);
+		return new Response<IFS>(
+				new ResponseHeader(ResponseHeader.Status.SUCCESS, ResponseHeader.ResultSetType.SINGLE), ifs);
+
+	}
+
+	@ApiOperation(value = "deleteIFS", notes = "deleteIFS", response = Response.class)
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "INVALID_REQUEST", response = Response.class),
+			@ApiResponse(code = 401, message = "NOT_AUTHORISED", response = Response.class),
+			@ApiResponse(code = 404, message = "REQUEST_NOT_FOUND", response = Response.class),
+			@ApiResponse(code = 500, message = "INTERNAL_SERVER_ERROR", response = Response.class),
+			@ApiResponse(code = 503, message = "SERVER_NOT_AVAILABLE", response = Response.class), })
+	@DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/deleteIFS")
+	public Response<String> deleteIFS(@Param(value = "ifsNo") String ifsNo) throws IOException {
+		Boolean isIfsDeleted = indentForSupplyAndOrderForSupplyService.deleteIFSByIndentNo(ifsNo);
+		String ifsDeleteMessage = null;
+		if(isIfsDeleted) {
+			ifsDeleteMessage = "IFS Record deleted Successfully";
+		}
+		return new Response<String>(
+				new ResponseHeader(ResponseHeader.Status.SUCCESS, ResponseHeader.ResultSetType.SINGLE), ifsDeleteMessage);
+
+	}
+
+	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/updateIFSTypes")
+	public Response<IFSDto> updateIFSTypes(@RequestBody Request<IFSDto> request) throws ParseException {
+		IFSDto responseData = indentForSupplyAndOrderForSupplyService.updateIFSTypes(request.getRequestData());
+		return new Response<IFSDto>(
+				new ResponseHeader(ResponseHeader.Status.SUCCESS, ResponseHeader.ResultSetType.SINGLE), responseData);
+
+	}
 	private PageInfo getPageInfo(@RequestBody(required = false) Request request) {
 		PageInfo pageInfo = new PageInfo();
 		if (request != null && request.getPageInfo() != null) {
