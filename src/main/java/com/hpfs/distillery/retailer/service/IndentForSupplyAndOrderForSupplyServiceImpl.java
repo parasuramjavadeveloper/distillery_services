@@ -1,34 +1,23 @@
 package com.hpfs.distillery.retailer.service;
 
-import java.beans.PropertyDescriptor;
+import com.hpfs.distillery.retailer.dto.*;
+import com.hpfs.distillery.retailer.model.*;
+import com.hpfs.distillery.retailer.repository.*;
+import com.hpfs.distillery.retailer.utils.DateUtils;
+import com.hpfs.distillery.retailer.utils.DtoToModel;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import javax.annotation.Resource;
-import javax.transaction.Transactional;
-
-import com.hpfs.distillery.retailer.dto.IFSDto;
-import com.hpfs.distillery.retailer.model.*;
-import com.hpfs.distillery.retailer.repository.IFSRepository;
-import com.hpfs.distillery.retailer.utils.DtoToModel;
-import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Service;
-
-import com.hpfs.distillery.retailer.dto.IndentForSupplyDts;
-import com.hpfs.distillery.retailer.dto.OrderForSupplyDts;
-import com.hpfs.distillery.retailer.dto.Request;
-import com.hpfs.distillery.retailer.repository.IndentForSupplyRepository;
-import com.hpfs.distillery.retailer.repository.OrderForSupplyRepository;
-import com.hpfs.distillery.retailer.repository.TblProductsMRepository;
-import com.hpfs.distillery.retailer.utils.DateUtils;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
@@ -47,6 +36,9 @@ public class IndentForSupplyAndOrderForSupplyServiceImpl implements IndentForSup
 
 	@Resource
 	IFSRepository iFSRepository;
+
+	@Resource
+	IFSProductRepository iFSProductRepository;
 
 	@Resource
 	OrderForSupplyRepository orderForSupplyRepository;
@@ -301,7 +293,6 @@ public class IndentForSupplyAndOrderForSupplyServiceImpl implements IndentForSup
     @Override
     public IFS getIFSByIFSNo(String ifsNo) {
 		IFS ifs = iFSRepository.getOne(ifsNo);
-		ifs.setiFSProducts(ifs.getiFSProducts());
         return ifs;
     }
 
@@ -311,16 +302,57 @@ public class IndentForSupplyAndOrderForSupplyServiceImpl implements IndentForSup
 		return null;
 	}
 
+	@Override
+	public IFSProductsDto getPrdctByIfsPid(final Integer ifsPid) {
+
+		IFSProducts iFSProduct = iFSProductRepository.getOne(ifsPid);
+		IFSProductsDto iFSProductsDto= new IFSProductsDto();
+		iFSProductsDto.setIndentDate(DateUtils.getDateAsString(iFSProduct.getIndentDate()));
+		iFSProductsDto.setCreationDate(DateUtils.getDateAsString(iFSProduct.getCreationDate()));
+		iFSProductsDto.setUpdatedDate(DateUtils.getDateAsString(iFSProduct.getUpdatedDate()));
+		String[] excludedProperties = {"indentDate","creationDate","updatedDate"};
+		BeanUtils.copyProperties(iFSProduct, iFSProductsDto, excludedProperties);
+		return  iFSProductsDto;
+	}
+
+	@Override
+	public String updateIFSProduct(final IFSProductsDto iFSProductsDto) throws ParseException {
+		final Integer pk = iFSProductsDto.getIfsPid();
+		String message = null;
+		IFSProducts iFSProduct = iFSProductRepository.getOne(pk);
+		if (iFSProduct != null) {
+			iFSProduct.setIndentDate(DateUtils.getDateFromString(iFSProductsDto.getIndentDate()));
+			iFSProduct.setCreationDate(DateUtils.getDateFromString(iFSProductsDto.getCreationDate()));
+			iFSProduct.setUpdatedDate(DateUtils.getDateFromString(iFSProductsDto.getUpdatedDate()));
+			String[] excludedProperties = {"indentDate","creationDate","updatedDate","ifsNum"};
+			BeanUtils.copyProperties(iFSProductsDto, iFSProduct, excludedProperties);
+			iFSProduct = iFSProductRepository.save(iFSProduct);
+			if(iFSProduct!=null){
+				message= "IFSProduct Updated Successfully";
+			}else{
+				message= "IFSProduct Not Updated Successfully";
+			}
+		}
+		return message;
+	}
+
+	@Override
+	public String deleteIfsProduct(Integer ifsPid) {
+		IFSProducts iFSProduct = iFSProductRepository.getOne(ifsPid);
+		if (iFSProduct != null) {
+			iFSProductRepository.delete(iFSProduct);
+			return "SUCCESS";
+		}
+		return "FAILURE";
+	}
+
 	private IFS buildIFs(IFSDto ifsDto) throws ParseException {
 		IFS ifs = getIFSByIFSNo(ifsDto.getIfsNo());
 		ifs.setIndentDate(DateUtils.getDateFromString(ifsDto.getIndentDate()));
 		ifs.setCreationDate(DateUtils.getDateFromString(ifsDto.getCreationDate()));
 		ifs.setUpdatedDate(DateUtils.getDateFromString(ifsDto.getUpdatedDate()));
 		String[] excludedProperties = {"indentDate","creationDate","updatedDate"};
-
-       //, new String[] {"address"}
 		BeanUtils.copyProperties(ifsDto, ifs, excludedProperties);
-	//	BeanUtils.copyProperties(ifsDto,ifs);
 		return iFSRepository.save(ifs);
 	}
 

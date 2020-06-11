@@ -8,14 +8,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
 
-import com.hpfs.distillery.retailer.dto.IFSDto;
-import com.hpfs.distillery.retailer.dto.IndentForSupplyDts;
-import com.hpfs.distillery.retailer.dto.OrderForSupplyDts;
-import com.hpfs.distillery.retailer.dto.Request;
-import com.hpfs.distillery.retailer.model.IFS;
-import com.hpfs.distillery.retailer.model.TblIndentForSupply;
-import com.hpfs.distillery.retailer.model.TblOrderForSupply;
-import com.hpfs.distillery.retailer.model.TblProductsM;
+import com.hpfs.distillery.retailer.dto.*;
+import com.hpfs.distillery.retailer.model.*;
 
 
 /**
@@ -60,4 +54,10 @@ public interface IndentForSupplyAndOrderForSupplyService {
 	IFS getIFSByIFSNo(String ifsNo);
 
 	IFSDto updateIFSTypes(IFSDto requestData) throws ParseException;
+
+	IFSProductsDto getPrdctByIfsPid(Integer ifsPid);
+
+	String updateIFSProduct(IFSProductsDto iFSProductsDto) throws ParseException;
+
+	String deleteIfsProduct(Integer ifsPid);
 }

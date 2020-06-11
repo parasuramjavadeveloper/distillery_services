@@ -50,7 +50,7 @@ public class IFS implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date indentDate;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "ifs_num", insertable = true, updatable = true, nullable=false)
     private List<IFSProducts> iFSProducts = new ArrayList<>();
 

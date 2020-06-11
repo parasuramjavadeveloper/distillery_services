@@ -11,15 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import com.hpfs.distillery.retailer.service.IndentForSupplyAndOrderForSupplyService;
 
@@ -260,12 +255,41 @@ public class IndentForSupplyAndOrderForSupplyController {
 
 	}
 
-	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/updateIFSTypes")
-	public Response<IFSDto> updateIFSTypes(@RequestBody Request<IFSDto> request) throws ParseException {
-		IFSDto responseData = indentForSupplyAndOrderForSupplyService.updateIFSTypes(request.getRequestData());
-		return new Response<IFSDto>(
-				new ResponseHeader(ResponseHeader.Status.SUCCESS, ResponseHeader.ResultSetType.SINGLE), responseData);
+	@ApiOperation(value = "fetchPrdctByIfsPid", notes = "fetchPrdctByIfsPid", response = Response.class)
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "INVALID_REQUEST", response = Response.class),
+			@ApiResponse(code = 401, message = "NOT_AUTHORISED", response = Response.class),
+			@ApiResponse(code = 404, message = "REQUEST_NOT_FOUND", response = Response.class),
+			@ApiResponse(code = 500, message = "INTERNAL_SERVER_ERROR", response = Response.class),
+			@ApiResponse(code = 503, message = "SERVER_NOT_AVAILABLE", response = Response.class), })
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/fetchPrdctByIfsPid")
+	public Response<IFSProductsDto> getIfsPrdctByPid(@Param(value= "ifsPid") Integer ifsPid) throws IOException {
+		IFSProductsDto product = indentForSupplyAndOrderForSupplyService.getPrdctByIfsPid(ifsPid);
+		if(product==null) {
+			return new Response<IFSProductsDto>(
+					new ResponseHeader(ResponseHeader.Status.FAILURE, ResponseHeader.ResultSetType.SINGLE), product);
+		}
+		return new Response<IFSProductsDto>(
+				new ResponseHeader(ResponseHeader.Status.SUCCESS, ResponseHeader.ResultSetType.SINGLE), product);
+	}
 
+	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/updateIFSProduct")
+	public Response<String> updateIFSProduct(@RequestBody IFSProductsDto request) throws ParseException {
+		String updatedProduct = indentForSupplyAndOrderForSupplyService.updateIFSProduct(request);
+		return new Response<String>(
+				new ResponseHeader(ResponseHeader.Status.SUCCESS, ResponseHeader.ResultSetType.SINGLE), updatedProduct);
+
+	}
+
+	@DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/deleteIFSPrdct")
+	public ResponseEntity<String> deleteIfsProduct(@Param(value= "ifsPid") Integer ifsPid) {
+	String deleted= indentForSupplyAndOrderForSupplyService.deleteIfsProduct(ifsPid);
+		if (deleted.equalsIgnoreCase("SUCCESS")) {
+			deleted="IFS Product deleted Successfully";
+			return new ResponseEntity<>(deleted,HttpStatus.OK);
+		} else {
+			deleted="IFS Product not deleted";
+			return new ResponseEntity<>(deleted,HttpStatus.NOT_FOUND);
+		}
 	}
 	private PageInfo getPageInfo(@RequestBody(required = false) Request request) {
 		PageInfo pageInfo = new PageInfo();

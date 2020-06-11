@@ -9,6 +9,8 @@ package com.hpfs.distillery.retailer.dto;
  */
 public class IFSProductsDto {
 
+    private Integer ifsPid;
+
     private String ifsNum;
 
     private String indentDate;
@@ -137,5 +139,13 @@ public class IFSProductsDto {
 
     public void setUpdatedDate(String updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    public Integer getIfsPid() {
+        return ifsPid;
+    }
+
+    public void setIfsPid(Integer ifsPid) {
+        this.ifsPid = ifsPid;
     }
 }

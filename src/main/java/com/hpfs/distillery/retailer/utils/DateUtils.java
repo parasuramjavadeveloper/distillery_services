@@ -34,7 +34,7 @@ public class DateUtils {
     public static String getDateAsString(Date anyDate) {
         if(anyDate!=null)
         {
-            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ssZ");
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String dateAddedOn = dateFormat.format(anyDate);
             return dateAddedOn;
         }
