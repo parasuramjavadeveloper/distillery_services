@@ -76,8 +76,7 @@ public class IndentForSupplyAndOrderForSupplyServiceImpl implements IndentForSup
 
 	@Override
 	public IFS saveIndentTypes(IFSDto saveIfsType) throws ParseException, SQLException, IOException {
-		IFS ifs = null;
-		ifs = iFSRepository.save(dtoToModel.toIFS(saveIfsType));
+		IFS ifs = iFSRepository.save(dtoToModel.toIFS(saveIfsType));
 		return ifs;
 	}
 
